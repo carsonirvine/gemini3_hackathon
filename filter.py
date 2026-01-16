@@ -90,8 +90,16 @@ try:
 
     # 4. Get Data and Save
     all_data = driver.execute_script("return window.finalData;")
-    output_filename = subject+"_courses.json"
-    output_path = ROOT / output_filename
+
+    # Define the subfolder (e.g., "Data")
+    output_dir = ROOT / "JSON_output"
+
+    # Create the folder automatically if it doesn't exist yet
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    output_filename = f"{subject}_courses.json"
+    output_path = output_dir / output_filename
+
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(all_data, f, indent=4)
 
