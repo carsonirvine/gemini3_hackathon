@@ -1,7 +1,3 @@
-// Type in to console and then 
-// copy(JSON.stringify(allCourses, null, 2)); 
-// to copy all data to clipboard
-
 let allCourses = [];
 let pageCount = 0;
 
@@ -38,3 +34,6 @@ function scrapeCurrentPage() {
         console.log("Data copied to clipboard as JSON.");
     }
 }
+
+// Start the process
+scrapeCurrentPage();
