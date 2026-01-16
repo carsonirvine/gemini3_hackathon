@@ -1,18 +1,21 @@
 let allCourses = [];
 let pageCount = 0;
+let foundAnyInThisSession = false; // Track if we've started finding ANTH
 
 function scrapeCurrentPage() {
     pageCount++;
     console.log(`Scraping Page ${pageCount}...`);
 
     let rows = document.querySelectorAll('tr[data-id]');
-    rows.forEach(row => {
-        let getProp = (prop) => row.querySelector(`[data-property="${prop}"]`)?.innerText.trim() || "";
-        
-        let subject = getProp("subject").toUpperCase(); // Convert to uppercase
+    let foundOnThisPage = 0;
 
-        // More flexible check: see if "ANTH" exists anywhere in the subject string
-        if (subject.includes("ANTH")) {
+    rows.forEach(row => {
+        let getProp = (prop) => row.querySelector(`[data-property="${prop}"]`)?.innerText.trim() || "N/A";
+        let subject = getProp("subject");
+
+        if (subject === "ANTH") {
+            foundOnThisPage++;
+            foundAnyInThisSession = true; // Mark that we are officially in the ANTH section
             let scheduleRaw = row.querySelector('[data-property="meetingTime"]')?.getAttribute('title') || "TBA";
             
             allCourses.push({
@@ -27,16 +30,29 @@ function scrapeCurrentPage() {
         }
     });
 
-    let nextButton = document.querySelector('button.paging-control.next');
+    // --- TERMINATION LOGIC ---
+    // If we were previously finding ANTH courses, but this page has none, we are done!
+    if (foundAnyInThisSession && foundOnThisPage === 0) {
+        console.log("Detected end of ANTH section. Terminating early...");
+        finishScrape();
+        return;
+    }
 
-    // Increased page limit to 100 to ensure we find it alphabetically
-    if (nextButton && !nextButton.disabled && nextButton.getAttribute('aria-disabled') !== 'true' && pageCount < 100) {
+    let nextButton = document.querySelector('button.paging-control.next');
+    
+    // Continue if there's a next page and we haven't hit the end of the ANTH block
+    if (nextButton && !nextButton.disabled && nextButton.getAttribute('aria-disabled') !== 'true') {
         nextButton.click();
         setTimeout(scrapeCurrentPage, 3000);
     } else {
-        console.log("Finished! Total ANTH courses found:", allCourses.length);
-        copy(JSON.stringify(allCourses, null, 2));
+        finishScrape();
     }
+}
+
+function finishScrape() {
+    console.log("Finished! Total ANTH courses found:", allCourses.length);
+    copy(JSON.stringify(allCourses, null, 2));
+    console.log("ANTH data copied to clipboard.");
 }
 
 scrapeCurrentPage();
