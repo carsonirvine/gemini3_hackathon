@@ -9,7 +9,6 @@ function scrapeCurrentPage() {
     rows.forEach(row => {
         let getProp = (prop) => row.querySelector(`[data-property="${prop}"]`)?.innerText.trim() || "N/A";
         let scheduleRaw = row.querySelector('[data-property="meetingTime"]')?.getAttribute('title') || "TBA";
-
         allCourses.push({
             crn: getProp("courseReferenceNumber"),
             subject: getProp("subject"),
@@ -17,14 +16,15 @@ function scrapeCurrentPage() {
             section: getProp("sequenceNumber"),
             title: getProp("courseTitle"),
             schedule: scheduleRaw.split("SMTWTFS")[0].trim() + " | " + 
-                      (scheduleRaw.split("SMTWTFS")[1]?.split("Building:")[0].trim() || "")
+                    (scheduleRaw.split("SMTWTFS")[1]?.split("Building:")[0].trim() || "")
         });
+        
     });
 
     // Find the 'Next' arrow button
     let nextButton = document.querySelector('button.paging-control.next');
 
-    if (nextButton && !nextButton.disabled && nextButton.getAttribute('aria-disabled') !== 'true') {
+    if (nextButton && !nextButton.disabled && nextButton.getAttribute('aria-disabled') !== 'true' && pageCount < 10) {
         nextButton.click();
         // Wait 3 seconds for the next page to load before scraping again
         setTimeout(scrapeCurrentPage, 3000);
