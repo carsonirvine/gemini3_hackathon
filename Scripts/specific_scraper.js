@@ -44,7 +44,7 @@ function scrapeCurrentPage() {
     let nextButton = document.querySelector('button.paging-control.next');
     if (nextButton && !nextButton.disabled && nextButton.getAttribute('aria-disabled') !== 'true') {
         nextButton.click();
-        setTimeout(scrapeCurrentPage, 3000);
+        setTimeout(scrapeCurrentPage, 1500);
     } else {
         finishScrape();
     }

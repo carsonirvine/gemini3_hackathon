@@ -1,0 +1,778 @@
+[
+    {
+        "course": "113",
+        "crn": "23759",
+        "schedule": "Thursday | 09:30  AM - 11:20  AM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Golf"
+    },
+    {
+        "course": "120",
+        "crn": "21355",
+        "schedule": "Wednesday | 12:30  PM - 02:20  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Basketball"
+    },
+    {
+        "course": "122",
+        "crn": "21356",
+        "schedule": "Wednesday | 10:30  AM - 12:20  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Volleyball"
+    },
+    {
+        "course": "133",
+        "crn": "21357",
+        "schedule": "Tuesday | 01:30  PM - 03:20  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Strength Training"
+    },
+    {
+        "course": "141",
+        "crn": "21358",
+        "schedule": "Tuesday,Wednesday,Friday | 08:30  AM - 09:20  AM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Human Anatomy"
+    },
+    {
+        "course": "141",
+        "crn": "21359",
+        "schedule": "Tuesday | 10:30  AM - 12:20  PM",
+        "section": "B01",
+        "subject": "EPHE",
+        "title": "Human Anatomy"
+    },
+    {
+        "course": "141",
+        "crn": "21360",
+        "schedule": "Tuesday | 12:30  PM - 02:20  PM",
+        "section": "B02",
+        "subject": "EPHE",
+        "title": "Human Anatomy"
+    },
+    {
+        "course": "141",
+        "crn": "21361",
+        "schedule": "Tuesday | 02:30  PM - 04:20  PM",
+        "section": "B03",
+        "subject": "EPHE",
+        "title": "Human Anatomy"
+    },
+    {
+        "course": "141",
+        "crn": "21362",
+        "schedule": "Tuesday | 04:30  PM - 06:20  PM",
+        "section": "B04",
+        "subject": "EPHE",
+        "title": "Human Anatomy"
+    },
+    {
+        "course": "141",
+        "crn": "21363",
+        "schedule": "Wednesday | 10:30  AM - 12:20  PM",
+        "section": "B05",
+        "subject": "EPHE",
+        "title": "Human Anatomy"
+    },
+    {
+        "course": "141",
+        "crn": "21364",
+        "schedule": "Wednesday | 12:30  PM - 02:20  PM",
+        "section": "B06",
+        "subject": "EPHE",
+        "title": "Human Anatomy"
+    },
+    {
+        "course": "141",
+        "crn": "21365",
+        "schedule": "Wednesday | 02:30  PM - 04:20  PM",
+        "section": "B07",
+        "subject": "EPHE",
+        "title": "Human Anatomy"
+    },
+    {
+        "course": "141",
+        "crn": "21366",
+        "schedule": "Thursday | 10:30  AM - 12:20  PM",
+        "section": "B08",
+        "subject": "EPHE",
+        "title": "Human Anatomy"
+    },
+    {
+        "course": "141",
+        "crn": "21367",
+        "schedule": "Thursday | 12:30  PM - 02:20  PM",
+        "section": "B09",
+        "subject": "EPHE",
+        "title": "Human Anatomy"
+    },
+    {
+        "course": "141",
+        "crn": "21368",
+        "schedule": "Thursday | 02:30  PM - 04:20  PM",
+        "section": "B10",
+        "subject": "EPHE",
+        "title": "Human Anatomy"
+    },
+    {
+        "course": "142",
+        "crn": "21369",
+        "schedule": "Monday,Thursday | 11:30  AM - 12:50  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Personal Health, Wellness and Potential"
+    },
+    {
+        "course": "142",
+        "crn": "21370",
+        "schedule": "Monday,Thursday | 10:00  AM - 11:20  AM",
+        "section": "A02",
+        "subject": "EPHE",
+        "title": "Personal Health, Wellness and Potential"
+    },
+    {
+        "course": "143",
+        "crn": "21371",
+        "schedule": "Tuesday,Wednesday,Friday | 09:30  AM - 10:20  AM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Multidisciplinary Foundations of Physical Activity"
+    },
+    {
+        "course": "143",
+        "crn": "21372",
+        "schedule": "None | -",
+        "section": "A02",
+        "subject": "EPHE",
+        "title": "Multidisciplinary Foundations of Physical Activity"
+    },
+    {
+        "course": "143",
+        "crn": "21373",
+        "schedule": "None | -",
+        "section": "A03",
+        "subject": "EPHE",
+        "title": "Multidisciplinary Foundations of Physical Activity"
+    },
+    {
+        "course": "144",
+        "crn": "21374",
+        "schedule": "Friday | 08:30  AM - 11:20  AM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Physical Literacy"
+    },
+    {
+        "course": "144",
+        "crn": "21375",
+        "schedule": "Friday | 12:30  PM - 03:20  PM",
+        "section": "A02",
+        "subject": "EPHE",
+        "title": "Physical Literacy"
+    },
+    {
+        "course": "155",
+        "crn": "21376",
+        "schedule": "Monday,Thursday | 04:30  PM - 05:50  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Introduction to Nutrition: Concepts and Controversies"
+    },
+    {
+        "course": "155",
+        "crn": "21377",
+        "schedule": "None | -",
+        "section": "A02",
+        "subject": "EPHE",
+        "title": "Introduction to Nutrition: Concepts and Controversies"
+    },
+    {
+        "course": "160",
+        "crn": "21378",
+        "schedule": "Monday,Thursday | 01:00  PM - 02:20  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Introduction to Human Systemic Physiology"
+    },
+    {
+        "course": "160",
+        "crn": "21379",
+        "schedule": "Tuesday | 10:30  AM - 12:20  PM",
+        "section": "B01",
+        "subject": "EPHE",
+        "title": "Introduction to Human Systemic Physiology"
+    },
+    {
+        "course": "160",
+        "crn": "21380",
+        "schedule": "Tuesday | 12:30  PM - 02:20  PM",
+        "section": "B02",
+        "subject": "EPHE",
+        "title": "Introduction to Human Systemic Physiology"
+    },
+    {
+        "course": "160",
+        "crn": "21381",
+        "schedule": "Tuesday | 02:30  PM - 04:20  PM",
+        "section": "B03",
+        "subject": "EPHE",
+        "title": "Introduction to Human Systemic Physiology"
+    },
+    {
+        "course": "160",
+        "crn": "21382",
+        "schedule": "Tuesday | 04:30  PM - 06:20  PM",
+        "section": "B04",
+        "subject": "EPHE",
+        "title": "Introduction to Human Systemic Physiology"
+    },
+    {
+        "course": "160",
+        "crn": "21383",
+        "schedule": "Tuesday | 06:30  PM - 08:20  PM",
+        "section": "B05",
+        "subject": "EPHE",
+        "title": "Introduction to Human Systemic Physiology"
+    },
+    {
+        "course": "160",
+        "crn": "21384",
+        "schedule": "Wednesday | 08:30  AM - 10:20  AM",
+        "section": "B06",
+        "subject": "EPHE",
+        "title": "Introduction to Human Systemic Physiology"
+    },
+    {
+        "course": "160",
+        "crn": "21385",
+        "schedule": "Wednesday | 10:30  AM - 12:20  PM",
+        "section": "B07",
+        "subject": "EPHE",
+        "title": "Introduction to Human Systemic Physiology"
+    },
+    {
+        "course": "160",
+        "crn": "21386",
+        "schedule": "Wednesday | 12:30  PM - 02:20  PM",
+        "section": "B08",
+        "subject": "EPHE",
+        "title": "Introduction to Human Systemic Physiology"
+    },
+    {
+        "course": "160",
+        "crn": "21387",
+        "schedule": "Wednesday | 02:30  PM - 04:20  PM",
+        "section": "B09",
+        "subject": "EPHE",
+        "title": "Introduction to Human Systemic Physiology"
+    },
+    {
+        "course": "160",
+        "crn": "21388",
+        "schedule": "Wednesday | 04:30  PM - 06:20  PM",
+        "section": "B10",
+        "subject": "EPHE",
+        "title": "Introduction to Human Systemic Physiology"
+    },
+    {
+        "course": "160",
+        "crn": "24170",
+        "schedule": "Wednesday | 06:30  PM - 08:20  PM",
+        "section": "B11",
+        "subject": "EPHE",
+        "title": "Introduction to Human Systemic Physiology"
+    },
+    {
+        "course": "200",
+        "crn": "21389",
+        "schedule": "Monday | 08:30  AM - 09:50  AM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Introduction to Professional Evaluation and Reporting"
+    },
+    {
+        "course": "200",
+        "crn": "21390",
+        "schedule": "Wednesday | 08:30  AM - 09:50  AM",
+        "section": "B01",
+        "subject": "EPHE",
+        "title": "Introduction to Professional Evaluation and Reporting"
+    },
+    {
+        "course": "200",
+        "crn": "21391",
+        "schedule": "Wednesday | 10:00  AM - 11:20  AM",
+        "section": "B02",
+        "subject": "EPHE",
+        "title": "Introduction to Professional Evaluation and Reporting"
+    },
+    {
+        "course": "244",
+        "crn": "21392",
+        "schedule": "Monday,Thursday | 08:30  AM - 09:50  AM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Canadian Recreation Delivery Systems"
+    },
+    {
+        "course": "246",
+        "crn": "21393",
+        "schedule": "Monday,Wednesday | 03:30  PM - 04:50  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Strategies for Active Health"
+    },
+    {
+        "course": "247",
+        "crn": "21394",
+        "schedule": "Tuesday,Wednesday,Friday | 10:30  AM - 11:20  AM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Introduction to Professional Practice in Kinesiology"
+    },
+    {
+        "course": "252",
+        "crn": "21395",
+        "schedule": "None | -",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Leadership Methods for Recreation and Health Education"
+    },
+    {
+        "course": "253",
+        "crn": "21396",
+        "schedule": "Tuesday,Wednesday,Friday | 10:30  AM - 11:20  AM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Program Planning"
+    },
+    {
+        "course": "271",
+        "crn": "21397",
+        "schedule": "Monday,Thursday | 01:00  PM - 02:20  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Group Fitness"
+    },
+    {
+        "course": "311",
+        "crn": "21398",
+        "schedule": "Monday,Thursday | 10:00  AM - 11:20  AM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Physical Education for General Classroom Teachers II"
+    },
+    {
+        "course": "311",
+        "crn": "21399",
+        "schedule": "Monday,Thursday | 01:00  PM - 02:20  PM",
+        "section": "A02",
+        "subject": "EPHE",
+        "title": "Physical Education for General Classroom Teachers II"
+    },
+    {
+        "course": "311",
+        "crn": "23886",
+        "schedule": "None | -",
+        "section": "A03",
+        "subject": "EPHE",
+        "title": "Physical Education for General Classroom Teachers II"
+    },
+    {
+        "course": "312",
+        "crn": "21400",
+        "schedule": "Monday,Thursday | 08:30  AM - 09:50  AM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Overview of Elementary or Middle School Physical Education"
+    },
+    {
+        "course": "312",
+        "crn": "21401",
+        "schedule": "Thursday | 02:30  PM - 05:20  PM",
+        "section": "A02",
+        "subject": "EPHE",
+        "title": "Overview of Elementary or Middle School Physical Education"
+    },
+    {
+        "course": "341",
+        "crn": "21402",
+        "schedule": "Monday,Thursday | 01:00  PM - 02:20  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Biomechanics"
+    },
+    {
+        "course": "341",
+        "crn": "21403",
+        "schedule": "Tuesday | 10:30  AM - 12:20  PM",
+        "section": "B01",
+        "subject": "EPHE",
+        "title": "Biomechanics"
+    },
+    {
+        "course": "341",
+        "crn": "21404",
+        "schedule": "Tuesday | 12:30  PM - 02:20  PM",
+        "section": "B02",
+        "subject": "EPHE",
+        "title": "Biomechanics"
+    },
+    {
+        "course": "341",
+        "crn": "21405",
+        "schedule": "Tuesday | 02:30  PM - 04:20  PM",
+        "section": "B03",
+        "subject": "EPHE",
+        "title": "Biomechanics"
+    },
+    {
+        "course": "341",
+        "crn": "21407",
+        "schedule": "Wednesday | 02:30  PM - 04:20  PM",
+        "section": "B05",
+        "subject": "EPHE",
+        "title": "Biomechanics"
+    },
+    {
+        "course": "344",
+        "crn": "21408",
+        "schedule": "Tuesday,Wednesday,Friday | 08:30  AM - 09:20  AM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Care and Prevention of Athletic Injuries"
+    },
+    {
+        "course": "344",
+        "crn": "21409",
+        "schedule": "Monday | 08:30  AM - 09:50  AM",
+        "section": "B01",
+        "subject": "EPHE",
+        "title": "Care and Prevention of Athletic Injuries"
+    },
+    {
+        "course": "344",
+        "crn": "21410",
+        "schedule": "Thursday | 08:30  AM - 09:50  AM",
+        "section": "B02",
+        "subject": "EPHE",
+        "title": "Care and Prevention of Athletic Injuries"
+    },
+    {
+        "course": "346",
+        "crn": "21412",
+        "schedule": "Tuesday,Wednesday,Friday | 11:30  AM - 12:20  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Motor Development and Physical Maturation"
+    },
+    {
+        "course": "348",
+        "crn": "21413",
+        "schedule": "Monday,Thursday | 11:30  AM - 12:50  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Psychology of Physical Activity"
+    },
+    {
+        "course": "348",
+        "crn": "21414",
+        "schedule": "Monday | 04:30  PM - 06:20  PM",
+        "section": "B01",
+        "subject": "EPHE",
+        "title": "Psychology of Physical Activity"
+    },
+    {
+        "course": "348",
+        "crn": "21415",
+        "schedule": "Thursday | 02:30  PM - 04:20  PM",
+        "section": "B02",
+        "subject": "EPHE",
+        "title": "Psychology of Physical Activity"
+    },
+    {
+        "course": "348",
+        "crn": "21416",
+        "schedule": "Friday | 02:30  PM - 04:20  PM",
+        "section": "B03",
+        "subject": "EPHE",
+        "title": "Psychology of Physical Activity"
+    },
+    {
+        "course": "355",
+        "crn": "21418",
+        "schedule": "Tuesday,Wednesday,Friday | 09:30  AM - 10:20  AM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Functional Anatomy"
+    },
+    {
+        "course": "355",
+        "crn": "21419",
+        "schedule": "Monday | 02:30  PM - 04:20  PM",
+        "section": "B01",
+        "subject": "EPHE",
+        "title": "Functional Anatomy"
+    },
+    {
+        "course": "355",
+        "crn": "21420",
+        "schedule": "Tuesday | 12:30  PM - 02:20  PM",
+        "section": "B02",
+        "subject": "EPHE",
+        "title": "Functional Anatomy"
+    },
+    {
+        "course": "355",
+        "crn": "21421",
+        "schedule": "Wednesday | 10:30  AM - 12:20  PM",
+        "section": "B03",
+        "subject": "EPHE",
+        "title": "Functional Anatomy"
+    },
+    {
+        "course": "355",
+        "crn": "21422",
+        "schedule": "Wednesday | 12:30  PM - 02:20  PM",
+        "section": "B04",
+        "subject": "EPHE",
+        "title": "Functional Anatomy"
+    },
+    {
+        "course": "402",
+        "crn": "21424",
+        "schedule": "Tuesday | 10:30  AM - 01:20  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Professional Preparation in Recreation"
+    },
+    {
+        "course": "442",
+        "crn": "21425",
+        "schedule": "Tuesday,Wednesday,Friday | 10:30  AM - 11:20  AM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Exercise Management of Chronic Disease"
+    },
+    {
+        "course": "442",
+        "crn": "21426",
+        "schedule": "Friday | 02:30  PM - 04:20  PM",
+        "section": "B01",
+        "subject": "EPHE",
+        "title": "Exercise Management of Chronic Disease"
+    },
+    {
+        "course": "444",
+        "crn": "21427",
+        "schedule": "Monday,Thursday | 08:30  AM - 09:50  AM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Measurement and Evaluation in Exercise Science"
+    },
+    {
+        "course": "444",
+        "crn": "21428",
+        "schedule": "Monday | 10:00  AM - 11:50  AM",
+        "section": "B01",
+        "subject": "EPHE",
+        "title": "Measurement and Evaluation in Exercise Science"
+    },
+    {
+        "course": "444",
+        "crn": "21429",
+        "schedule": "Monday | 12:30  PM - 02:20  PM",
+        "section": "B02",
+        "subject": "EPHE",
+        "title": "Measurement and Evaluation in Exercise Science"
+    },
+    {
+        "course": "444",
+        "crn": "21431",
+        "schedule": "Thursday | 10:30  AM - 12:20  PM",
+        "section": "B04",
+        "subject": "EPHE",
+        "title": "Measurement and Evaluation in Exercise Science"
+    },
+    {
+        "course": "444",
+        "crn": "21432",
+        "schedule": "Thursday | 02:30  PM - 04:20  PM",
+        "section": "B05",
+        "subject": "EPHE",
+        "title": "Measurement and Evaluation in Exercise Science"
+    },
+    {
+        "course": "445",
+        "crn": "21433",
+        "schedule": "Monday,Thursday | 02:30  PM - 03:50  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Developmental and Adaptive Physical Activity"
+    },
+    {
+        "course": "447",
+        "crn": "21434",
+        "schedule": "None | -",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Advanced Professionalism in Kinesiology"
+    },
+    {
+        "course": "449",
+        "crn": "21435",
+        "schedule": "Tuesday,Thursday | 04:30  PM - 05:50  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Parameters of Aging"
+    },
+    {
+        "course": "450",
+        "crn": "21436",
+        "schedule": "Monday,Wednesday | 02:30  PM - 03:50  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Musculoskeletal Pathology and Exercise Management"
+    },
+    {
+        "course": "450",
+        "crn": "21437",
+        "schedule": "Tuesday | 08:30  AM - 10:20  AM",
+        "section": "B01",
+        "subject": "EPHE",
+        "title": "Musculoskeletal Pathology and Exercise Management"
+    },
+    {
+        "course": "450",
+        "crn": "21438",
+        "schedule": "Wednesday | 08:30  AM - 10:20  AM",
+        "section": "B02",
+        "subject": "EPHE",
+        "title": "Musculoskeletal Pathology and Exercise Management"
+    },
+    {
+        "course": "452",
+        "crn": "21439",
+        "schedule": "Monday,Thursday | 10:00  AM - 11:20  AM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Strategies for Games in Physical Education"
+    },
+    {
+        "course": "454",
+        "crn": "21440",
+        "schedule": "Wednesday | 11:30  AM - 02:20  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Marketing for Health and Social Change"
+    },
+    {
+        "course": "480",
+        "crn": "21441",
+        "schedule": "Thursday | 04:30  PM - 07:20  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "SELECTED ISSUES IN EPHE: Psychological Issues in Exercise, Physical Activity and Health"
+    },
+    {
+        "course": "487",
+        "crn": "21442",
+        "schedule": "Monday,Thursday | 02:30  PM - 03:50  PM",
+        "section": "A02",
+        "subject": "EPHE",
+        "title": "SPECIAL TOPICS IN EPHE: Rhythmic Movement Activities"
+    },
+    {
+        "course": "581",
+        "crn": "21443",
+        "schedule": "Thursday | 04:30  PM - 07:20  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Psychological Issues in Exercise, Physical Activity and Health"
+    },
+    {
+        "course": "598",
+        "crn": "21444",
+        "schedule": "TBA | ",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Project - Exercise Science, Physical and Health Education"
+    },
+    {
+        "course": "598",
+        "crn": "21445",
+        "schedule": "TBA | ",
+        "section": "A02",
+        "subject": "EPHE",
+        "title": "Project - Exercise Science, Physical and Health Education"
+    },
+    {
+        "course": "599",
+        "crn": "21446",
+        "schedule": "TBA | ",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Thesis - Exercise Science, Physical and Health Education"
+    },
+    {
+        "course": "599",
+        "crn": "21447",
+        "schedule": "TBA | ",
+        "section": "A02",
+        "subject": "EPHE",
+        "title": "Thesis - Exercise Science, Physical and Health Education"
+    },
+    {
+        "course": "673A",
+        "crn": "21448",
+        "schedule": "Wednesday | 11:30  AM - 02:20  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Graduate Students Seminar I"
+    },
+    {
+        "course": "673B",
+        "crn": "21449",
+        "schedule": "Wednesday | 11:30  AM - 02:20  PM",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Graduate Students Seminar II"
+    },
+    {
+        "course": "693",
+        "crn": "21450",
+        "schedule": "TBA | ",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "Candidacy Exam - Kinesiology"
+    },
+    {
+        "course": "693",
+        "crn": "21451",
+        "schedule": "TBA | ",
+        "section": "A02",
+        "subject": "EPHE",
+        "title": "Candidacy Exam - Kinesiology"
+    },
+    {
+        "course": "699",
+        "crn": "21452",
+        "schedule": "TBA | ",
+        "section": "A01",
+        "subject": "EPHE",
+        "title": "PhD Dissertation Kinesiology"
+    },
+    {
+        "course": "699",
+        "crn": "21453",
+        "schedule": "TBA | ",
+        "section": "A02",
+        "subject": "EPHE",
+        "title": "PhD Dissertation Kinesiology"
+    }
+]
