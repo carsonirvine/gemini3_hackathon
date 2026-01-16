@@ -45,11 +45,11 @@ try:
     """)
     time.sleep(0.5)
     driver.execute_script("document.getElementById('search-go').click();")
-    time.sleep(1)
+    time.sleep(0.5)
     driver.execute_script("""
         $('.page-size-select').val('50').change();
     """)
-    time.sleep(2)
+    time.sleep(0.5)
     print(f"Navigating to page {starting_page}...")
 
     # 1. Set the page number
@@ -66,7 +66,7 @@ try:
 
     # IMPORTANT: Wait for the network to fetch the new page data 
     # before you inject the scraper to start reading rows.
-    time.sleep(2)
+    time.sleep(1)
 
     # time.sleep(30) # Give yourself time to click "Search"
 
@@ -81,7 +81,7 @@ try:
         is_done = driver.execute_script("return window.scrapingFinished || false;")
         if is_done:
             break
-        time.sleep(2) # Wait 2 seconds before checking again
+        time.sleep(1) # Wait 2 seconds before checking again
 
     # 4. Get Data and Save
     all_data = driver.execute_script("return window.finalData;")
