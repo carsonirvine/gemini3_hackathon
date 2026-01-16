@@ -16,7 +16,8 @@ function scrapeCurrentPage() {
             section: getProp("sequenceNumber"),
             title: getProp("courseTitle"),
             schedule: scheduleRaw.split("SMTWTFS")[0].trim() + " | " + 
-                    (scheduleRaw.split("SMTWTFS")[1]?.split("Building:")[0].trim() || "")
+                    (scheduleRaw.split("SMTWTFS")[1]?.split("Building:")[0].trim() || ""),
+            page: pageCount
         });
         
     });
@@ -24,7 +25,7 @@ function scrapeCurrentPage() {
     // Find the 'Next' arrow button
     let nextButton = document.querySelector('button.paging-control.next');
 
-    if (nextButton && !nextButton.disabled && nextButton.getAttribute('aria-disabled') !== 'true' && pageCount < 10) {
+    if (nextButton && !nextButton.disabled && nextButton.getAttribute('aria-disabled') !== 'true') {
         nextButton.click();
         // Wait 3 seconds for the next page to load before scraping again
         setTimeout(scrapeCurrentPage, 3000);
