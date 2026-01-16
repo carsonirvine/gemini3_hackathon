@@ -51,8 +51,10 @@ function scrapeCurrentPage() {
 
 function finishScrape() {
     console.log("Finished! Total ANTH courses found:", allCourses.length);
-    copy(JSON.stringify(allCourses, null, 2));
-    console.log("ANTH data copied to clipboard.");
+    // copy(JSON.stringify(allCourses, null, 2));
+    // console.log("ANTH data copied to clipboard.");
+    window.scrapingFinished = true;
+    window.finalData = allCourses;
 }
 
 scrapeCurrentPage();
