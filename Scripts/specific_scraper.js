@@ -1,21 +1,26 @@
 let allCourses = [];
 let pageCount = 0;
 let foundAnyInThisSession = false; // Track if we've started finding ANTH
+let targetSubject = window.targetSubject;
+
 
 function scrapeCurrentPage() {
-    pageCount++;
-    console.log(`Scraping Page ${pageCount}...`);
-
     let rows = document.querySelectorAll('tr[data-id]');
     let foundOnThisPage = 0;
+
+    // Wait for rows to exist
+    if (rows.length === 0) {
+        setTimeout(scrapeCurrentPage, 1000);
+        return;
+    }
 
     rows.forEach(row => {
         let getProp = (prop) => row.querySelector(`[data-property="${prop}"]`)?.innerText.trim() || "N/A";
         let subject = getProp("subject");
 
-        if (subject === "ANTH") {
+        if (subject === targetSubject) {
             foundOnThisPage++;
-            foundAnyInThisSession = true; // Mark that we are officially in the ANTH section
+            foundAnyInThisSession = true; 
             let scheduleRaw = row.querySelector('[data-property="meetingTime"]')?.getAttribute('title') || "TBA";
             
             allCourses.push({
@@ -30,17 +35,13 @@ function scrapeCurrentPage() {
         }
     });
 
-    // --- TERMINATION LOGIC ---
-    // If we were previously finding ANTH courses, but this page has none, we are done!
+    // Stop if we found the subject and now it's gone
     if (foundAnyInThisSession && foundOnThisPage === 0) {
-        console.log("Detected end of ANTH section. Terminating early...");
         finishScrape();
         return;
     }
 
     let nextButton = document.querySelector('button.paging-control.next');
-    
-    // Continue if there's a next page and we haven't hit the end of the ANTH block
     if (nextButton && !nextButton.disabled && nextButton.getAttribute('aria-disabled') !== 'true') {
         nextButton.click();
         setTimeout(scrapeCurrentPage, 3000);
@@ -50,11 +51,10 @@ function scrapeCurrentPage() {
 }
 
 function finishScrape() {
-    console.log("Finished! Total ANTH courses found:", allCourses.length);
-    // copy(JSON.stringify(allCourses, null, 2));
-    // console.log("ANTH data copied to clipboard.");
-    window.scrapingFinished = true;
     window.finalData = allCourses;
+    window.scrapingFinished = true; // THIS RELEASES THE PYTHON LOOP
+    console.log("Scraping finished.");
 }
 
+// Start immediately when injected
 scrapeCurrentPage();
