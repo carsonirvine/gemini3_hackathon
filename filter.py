@@ -1,28 +1,15 @@
 import json
 import time
-import course_lookup as lookup
 from selenium import webdriver
 from pathlib import Path
-
-import sys
-
-if len(sys.argv)>2:
-    print("TOO MANY ARGS, only 1 additional")
-    sys.exit()
 
 ROOT = Path(__file__).resolve().parent
 scraper_file = ROOT / "scripts" / "specific_scraper.js"
 # get_to_search_results_file = ROOT / "scripts" / "get_to_search_results.js"
 
-subject = "CSC"
 
 # 1. Setup Driver
 driver = webdriver.Chrome()
-if len(sys.argv) == 2:
-    subject = sys.argv[1] 
-
-
-starting_page = lookup.lookup(subject)
 
 try:
     # 2. Load and Run Script
@@ -49,33 +36,14 @@ try:
     driver.execute_script("""
         $('.page-size-select').val('50').change();
     """)
-    time.sleep(2)
-    print(f"Navigating to page {starting_page}...")
-
-    # 1. Set the page number
-    # 2. Trigger the change event
-    # 3. Simulate the 'Enter' key (keyCode 13)
-    driver.execute_script(f"""
-        var pg = $('.page-number');
-        pg.val('{starting_page}').change();
-        var e = $.Event('keydown');
-        e.which = 13; 
-        e.keyCode = 13;
-        pg.trigger(e);
-    """)
-
-    # IMPORTANT: Wait for the network to fetch the new page data 
-    # before you inject the scraper to start reading rows.
-    time.sleep(2)
 
     # time.sleep(30) # Give yourself time to click "Search"
 
     print("Injecting Scraper...")
-    setup_subject_js = f"window.targetSubject = '{subject}';"
-    driver.execute_script(setup_subject_js + scraper_js)
+    driver.execute_script(scraper_js)
 
     # 3. POLLING LOOP: Wait for JS to finish
-    print(f"Scraping pages... (Checking for {subject} courses)")
+    print("Scraping pages... (Checking for ANTH courses)")
     while True:
         # Check if our global flag is set to true
         is_done = driver.execute_script("return window.scrapingFinished || false;")
@@ -85,12 +53,13 @@ try:
 
     # 4. Get Data and Save
     all_data = driver.execute_script("return window.finalData;")
-    output_filename = subject+"_courses.json"
-    output_path = ROOT / output_filename
+    
+    output_path = ROOT / "anth_courses.json"
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(all_data, f, indent=4)
 
     print(f"Success! Saved {len(all_data)} courses to {output_path}")
+
 finally:
-    driver.quit() # Keep open to inspect, or uncomment to auto-close
+    # driver.quit() # Keep open to inspect, or uncomment to auto-close
     pass
