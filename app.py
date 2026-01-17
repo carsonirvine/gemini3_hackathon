@@ -17,16 +17,16 @@ def index():
 @app.route('/scrape', methods=['POST'])
 def run_scrape():
     subject = request.json.get('subject', 'CSC').upper()
-
+    course_num = request.json.get('course_num', '')
     start_perf = time.perf_counter()
 
-    if subject not in all_subjects:
-        sys.stderr.write(f"INVALID_SUBJECT: {subject}")
-        sys.exit(1) # Exit with error code 1
+    # if subject not in all_subjects:
+    #     sys.stderr.write(f"INVALID_SUBJECT: {subject}")
+    #     sys.exit(1) # Exit with error code 1
     try:
         # Run the scraper. Note: check=False (default) allows us to handle return codes ourselves
         process = subprocess.run(
-            ['python', 'course_search.py', subject],
+            ['python', 'course_search.py', subject, course_num],
             capture_output=True, 
             text=True
         )

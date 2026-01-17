@@ -12,7 +12,7 @@ all_subjects = ['ADMN', 'AE', 'AHVS', 'ANTH', 'ART', 'ASL', 'ASTR', 'ATWP', 'BCM
 # for timing
 start_time = time.time()
 
-if len(sys.argv)>2:
+if len(sys.argv)>3:
     print("TOO MANY ARGS, only 1 additional")
     sys.exit()
 
@@ -31,14 +31,18 @@ ROOT = Path(__file__).resolve().parent
 scraper_file = ROOT / "Scripts" / "course_search_scraper.js"
 
 subject = "CSC" # default
+course_number = "" # default
 
-if len(sys.argv) == 2:
+if len(sys.argv) == 3:
     subject = sys.argv[1].upper()
+    course_number = sys.argv[2]
+elif len(sys.argv) == 2:
+    subject = sys.argv[1].upper()
+
 
 if subject not in all_subjects:
     # Use sys.stderr.write so the web server catches the error message
     sys.stderr.write(f"INVALID_SUBJECT: {subject}")
-    sys.exit(1) # Exit with error code 1
 
 try:
     with open(scraper_file, "r", encoding="utf-8") as f:
@@ -53,11 +57,17 @@ try:
     """)
     time.sleep(1)
     driver.execute_script(f"""
-        var hiddenInput = document.getElementById('txt_subject');
-        hiddenInput.value = '{subject}';
-        var event = new Event('change', {{ bubbles: true }});
-        hiddenInput.dispatchEvent(event);
-        document.getElementById('search-go').click();
+    var subjectInput = document.getElementById('txt_subject');
+    subjectInput.value = '{subject}';
+    var subjectEvent = new Event('change', {{ bubbles: true }});
+    subjectInput.dispatchEvent(subjectEvent);
+
+    var numInput = document.getElementById('txt_courseNumber');
+    numInput.value = '{course_number}';
+    var numEvent = new Event('change', {{ bubbles: true }});
+    numInput.dispatchEvent(numEvent);
+
+    document.getElementById('search-go').click();
     """)
     time.sleep(0.5)
     driver.execute_script("""
