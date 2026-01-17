@@ -1,4 +1,5 @@
 
+
 let allCourses = [];
 let pageCount = 0;
 let foundAnyInThisSession = false; // Track if we've started finding ANTH
