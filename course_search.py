@@ -25,17 +25,18 @@ driver = webdriver.Chrome(options=chrome_options)
 # driver = webdriver.Chrome()
 
 ROOT = Path(__file__).resolve().parent
-scraper_file = ROOT / "scripts" / "course_search_scraper.js"
+scraper_file = ROOT / "Scripts" / "course_search_scraper.js"
 
 subject = "CSC"
 
 if len(sys.argv) == 2:
-    subject = sys.argv[1] 
+    subject = sys.argv[1].upper()
 
 try:
     with open(scraper_file, "r", encoding="utf-8") as f:
         scraper_js = f.read()
-
+        # print("DEBUG: First 50 characters of JS file loaded:")
+        # print(scraper_js[:5000])
     driver.get("https://banner.uvic.ca/StudentRegistrationSsb/ssb/classSearch/classSearch")
     driver.execute_script("document.getElementById('classSearchLink').click();")
     driver.execute_script("""
