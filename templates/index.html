@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Scraper</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col items-center py-12">
+
+    <div class="w-full max-w-2xl bg-white shadow-xl rounded-2xl p-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">UVic Course Lookup</h1>
+        
+        <div class="flex gap-4 mb-8">
+            <input type="text" id="subjectInput" placeholder="Enter Subject (e.g. CSC)" 
+                class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none uppercase">
+            <button onclick="startScrape()" id="btn"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all">
+                Fetch Courses
+            </button>
+        </div>
+
+        <div id="status" class="hidden mb-4 p-4 rounded-lg text-center font-medium"></div>
+
+        <div id="results" class="space-y-4">
+            </div>
+    </div>
+
+    <script>
+        async function startScrape() {
+            const subject = document.getElementById('subjectInput').value;
+            const btn = document.getElementById('btn');
+            const status = document.getElementById('status');
+            const resultsDiv = document.getElementById('results');
+
+            if (!subject) return alert("Please enter a subject");
+
+            // UI Loading State
+            btn.disabled = true;
+            btn.innerText = "Scraping...";
+            status.className = "mb-4 p-4 rounded-lg text-center font-medium bg-yellow-100 text-yellow-700";
+            status.innerText = "Selenium is starting... please wait ~10 seconds.";
+            status.classList.remove('hidden');
+            resultsDiv.innerHTML = "";
+
+            try {
+                const response = await fetch('/scrape', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ subject: subject })
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === "success") {
+                    status.className = "mb-4 p-4 rounded-lg text-center font-medium bg-green-100 text-green-700";
+                    status.innerText = `Found ${result.data.length} courses!`;
+                    
+                    result.data.forEach(course => {
+                        const card = document.createElement('div');
+                        card.className = "border-l-4 border-blue-500 bg-gray-50 p-4 rounded-r-lg shadow-sm";
+                        card.innerHTML = `
+                            <h3 class="font-bold text-lg">${course.subject} ${course.course} - ${course.section}</h3>
+                            <p class="text-gray-700">${course.title}</p>
+                            <p class="text-sm text-gray-500 mt-1">🕒 ${course.schedule}</p>
+                        `;
+                        resultsDiv.appendChild(card);
+                    });
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (err) {
+                status.className = "mb-4 p-4 rounded-lg text-center font-medium bg-red-100 text-red-700";
+                status.innerText = "Error: " + err.message;
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Fetch Courses";
+            }
+        }
+    </script>
+</body>
+</html>
