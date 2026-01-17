@@ -1,0 +1,1072 @@
+[
+    {
+        "course": "100",
+        "crn": "21919",
+        "schedule": "Monday,Wednesday,Thursday | 03:30  PM - 04:20  PM",
+        "seats": "2/200",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Calculus I",
+        "waitlist": "85/90"
+    },
+    {
+        "course": "100",
+        "crn": "21920",
+        "schedule": "Wednesday | 02:30  PM - 03:20  PM",
+        "seats": "3/40",
+        "section": "T01",
+        "subject": "MATH",
+        "title": "Calculus I",
+        "waitlist": "17/17"
+    },
+    {
+        "course": "100",
+        "crn": "21921",
+        "schedule": "Wednesday | 02:30  PM - 03:20  PM",
+        "seats": "0/40",
+        "section": "T02",
+        "subject": "MATH",
+        "title": "Calculus I",
+        "waitlist": "15/17"
+    },
+    {
+        "course": "100",
+        "crn": "21922",
+        "schedule": "Wednesday | 01:30  PM - 02:20  PM",
+        "seats": "0/40",
+        "section": "T03",
+        "subject": "MATH",
+        "title": "Calculus I",
+        "waitlist": "11/17"
+    },
+    {
+        "course": "100",
+        "crn": "21923",
+        "schedule": "Wednesday | 04:30  PM - 05:20  PM",
+        "seats": "4/40",
+        "section": "T04",
+        "subject": "MATH",
+        "title": "Calculus I",
+        "waitlist": "17/17"
+    },
+    {
+        "course": "100",
+        "crn": "21924",
+        "schedule": "Wednesday | 04:30  PM - 05:20  PM",
+        "seats": "2/40",
+        "section": "T05",
+        "subject": "MATH",
+        "title": "Calculus I",
+        "waitlist": "17/17"
+    },
+    {
+        "course": "101",
+        "crn": "21925",
+        "schedule": "Monday,Thursday | 08:30  AM - 09:50  AM",
+        "seats": "10/200",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "100/100"
+    },
+    {
+        "course": "101",
+        "crn": "21926",
+        "schedule": "Monday,Wednesday,Thursday | 02:30  PM - 03:20  PM",
+        "seats": "21/200",
+        "section": "A02",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "200/200"
+    },
+    {
+        "course": "101",
+        "crn": "21927",
+        "schedule": "Tuesday,Wednesday,Friday | 08:30  AM - 09:20  AM",
+        "seats": "12/200",
+        "section": "A03",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "100/100"
+    },
+    {
+        "course": "101",
+        "crn": "21928",
+        "schedule": "Tuesday,Wednesday,Friday | 12:30  PM - 01:20  PM",
+        "seats": "0/200",
+        "section": "A04",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "83/100"
+    },
+    {
+        "course": "101",
+        "crn": "21929",
+        "schedule": "Tuesday,Friday | 02:30  PM - 03:50  PM",
+        "seats": "71/200",
+        "section": "A05",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "100/100"
+    },
+    {
+        "course": "101",
+        "crn": "21930",
+        "schedule": "Monday | 11:30  AM - 12:20  PM",
+        "seats": "1/40",
+        "section": "T01",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "36/40"
+    },
+    {
+        "course": "101",
+        "crn": "21931",
+        "schedule": "Monday | 11:30  AM - 12:20  PM",
+        "seats": "0/40",
+        "section": "T02",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "39/40"
+    },
+    {
+        "course": "101",
+        "crn": "21932",
+        "schedule": "Monday | 11:30  AM - 12:20  PM",
+        "seats": "1/40",
+        "section": "T03",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "39/40"
+    },
+    {
+        "course": "101",
+        "crn": "21933",
+        "schedule": "Monday | 09:00  AM - 09:50  AM",
+        "seats": "1/40",
+        "section": "T04",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "101",
+        "crn": "21934",
+        "schedule": "Monday | 09:00  AM - 09:50  AM",
+        "seats": "1/40",
+        "section": "T05",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "101",
+        "crn": "21935",
+        "schedule": "Monday | 12:30  PM - 01:20  PM",
+        "seats": "0/40",
+        "section": "T06",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "39/40"
+    },
+    {
+        "course": "101",
+        "crn": "21936",
+        "schedule": "Monday | 01:30  PM - 02:20  PM",
+        "seats": "0/40",
+        "section": "T07",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "35/40"
+    },
+    {
+        "course": "101",
+        "crn": "21937",
+        "schedule": "Monday | 02:30  PM - 03:20  PM",
+        "seats": "1/40",
+        "section": "T08",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "101",
+        "crn": "21938",
+        "schedule": "Monday | 05:30  PM - 06:20  PM",
+        "seats": "1/40",
+        "section": "T09",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "101",
+        "crn": "21939",
+        "schedule": "Monday | 05:30  PM - 06:20  PM",
+        "seats": "3/40",
+        "section": "T10",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "101",
+        "crn": "21940",
+        "schedule": "Monday | 02:30  PM - 03:20  PM",
+        "seats": "6/40",
+        "section": "T11",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "101",
+        "crn": "21941",
+        "schedule": "Monday | 02:30  PM - 03:20  PM",
+        "seats": "7/35",
+        "section": "T12",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "101",
+        "crn": "21942",
+        "schedule": "Monday | 02:30  PM - 03:20  PM",
+        "seats": "9/40",
+        "section": "T13",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "101",
+        "crn": "21943",
+        "schedule": "Monday | 02:30  PM - 03:20  PM",
+        "seats": "3/40",
+        "section": "T14",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "101",
+        "crn": "21944",
+        "schedule": "Monday | 02:30  PM - 03:20  PM",
+        "seats": "10/40",
+        "section": "T15",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "101",
+        "crn": "21945",
+        "schedule": "Monday | 03:30  PM - 04:20  PM",
+        "seats": "4/40",
+        "section": "T16",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "101",
+        "crn": "21946",
+        "schedule": "Monday | 03:30  PM - 04:20  PM",
+        "seats": "3/35",
+        "section": "T17",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "101",
+        "crn": "21947",
+        "schedule": "Monday | 03:30  PM - 04:20  PM",
+        "seats": "18/40",
+        "section": "T18",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "101",
+        "crn": "21948",
+        "schedule": "Monday | 03:30  PM - 04:20  PM",
+        "seats": "9/40",
+        "section": "T19",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "101",
+        "crn": "21949",
+        "schedule": "Monday | 03:30  PM - 04:20  PM",
+        "seats": "8/40",
+        "section": "T20",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "101",
+        "crn": "21950",
+        "schedule": "Monday | 11:30  AM - 12:20  PM",
+        "seats": "2/40",
+        "section": "T21",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "101",
+        "crn": "21951",
+        "schedule": "Monday | 11:30  AM - 12:20  PM",
+        "seats": "1/40",
+        "section": "T22",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "100/100"
+    },
+    {
+        "course": "101",
+        "crn": "21952",
+        "schedule": "Monday | 01:30  PM - 02:20  PM",
+        "seats": "0/40",
+        "section": "T23",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "101",
+        "crn": "21953",
+        "schedule": "Monday | 04:30  PM - 05:20  PM",
+        "seats": "1/40",
+        "section": "T24",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "101",
+        "crn": "21954",
+        "schedule": "Monday | 04:30  PM - 05:20  PM",
+        "seats": "8/40",
+        "section": "T25",
+        "subject": "MATH",
+        "title": "Calculus II",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "102",
+        "crn": "21955",
+        "schedule": "Tuesday,Wednesday,Friday | 10:30  AM - 11:20  AM",
+        "seats": "5/200",
+        "section": "A02",
+        "subject": "MATH",
+        "title": "Calculus for Students in the Social and Biological Sciences",
+        "waitlist": "66/70"
+    },
+    {
+        "course": "109",
+        "crn": "21956",
+        "schedule": "Monday,Thursday | 10:00  AM - 11:20  AM",
+        "seats": "5/200",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Introduction to Calculus",
+        "waitlist": "98/100"
+    },
+    {
+        "course": "109",
+        "crn": "24278",
+        "schedule": "Tuesday,Wednesday,Friday | 11:30  AM - 12:20  PM",
+        "seats": "47/80",
+        "section": "A03",
+        "subject": "MATH",
+        "title": "Introduction to Calculus",
+        "waitlist": "N/A"
+    },
+    {
+        "course": "109",
+        "crn": "21958",
+        "schedule": "Tuesday | 02:30  PM - 03:20  PM",
+        "seats": "1/40",
+        "section": "T01",
+        "subject": "MATH",
+        "title": "Introduction to Calculus",
+        "waitlist": "14/20"
+    },
+    {
+        "course": "109",
+        "crn": "21959",
+        "schedule": "Tuesday | 02:30  PM - 03:20  PM",
+        "seats": "1/40",
+        "section": "T02",
+        "subject": "MATH",
+        "title": "Introduction to Calculus",
+        "waitlist": "16/20"
+    },
+    {
+        "course": "109",
+        "crn": "21960",
+        "schedule": "Tuesday | 03:30  PM - 04:20  PM",
+        "seats": "0/40",
+        "section": "T03",
+        "subject": "MATH",
+        "title": "Introduction to Calculus",
+        "waitlist": "20/20"
+    },
+    {
+        "course": "109",
+        "crn": "21961",
+        "schedule": "Tuesday | 03:30  PM - 04:20  PM",
+        "seats": "1/40",
+        "section": "T04",
+        "subject": "MATH",
+        "title": "Introduction to Calculus",
+        "waitlist": "20/20"
+    },
+    {
+        "course": "109",
+        "crn": "21962",
+        "schedule": "Tuesday | 04:30  PM - 05:20  PM",
+        "seats": "1/35",
+        "section": "T05",
+        "subject": "MATH",
+        "title": "Introduction to Calculus",
+        "waitlist": "19/20"
+    },
+    {
+        "course": "109",
+        "crn": "21963",
+        "schedule": "Tuesday | 02:30  PM - 03:20  PM",
+        "seats": "14/40",
+        "section": "T06",
+        "subject": "MATH",
+        "title": "Introduction to Calculus",
+        "waitlist": "100/100"
+    },
+    {
+        "course": "122",
+        "crn": "21964",
+        "schedule": "Tuesday,Wednesday,Friday | 08:30  AM - 09:20  AM",
+        "seats": "30/80",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Logic and Foundations",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "122",
+        "crn": "21965",
+        "schedule": "Monday,Wednesday,Thursday | 02:30  PM - 03:20  PM",
+        "seats": "26/80",
+        "section": "A02",
+        "subject": "MATH",
+        "title": "Logic and Foundations",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "122",
+        "crn": "21966",
+        "schedule": "Tuesday,Wednesday,Friday | 09:30  AM - 10:20  AM",
+        "seats": "2/80",
+        "section": "A03",
+        "subject": "MATH",
+        "title": "Logic and Foundations",
+        "waitlist": "40/40"
+    },
+    {
+        "course": "151",
+        "crn": "21968",
+        "schedule": "Monday,Wednesday,Thursday | 02:30  PM - 03:20  PM",
+        "seats": "3/200",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Finite Mathematics",
+        "waitlist": "100/100"
+    },
+    {
+        "course": "151",
+        "crn": "21969",
+        "schedule": "Monday,Thursday | 02:30  PM - 03:50  PM",
+        "seats": "1/107",
+        "section": "A02",
+        "subject": "MATH",
+        "title": "Finite Mathematics",
+        "waitlist": "95/100"
+    },
+    {
+        "course": "151",
+        "crn": "21970",
+        "schedule": "Tuesday,Wednesday,Friday | 12:30  PM - 01:20  PM",
+        "seats": "19/230",
+        "section": "A03",
+        "subject": "MATH",
+        "title": "Finite Mathematics",
+        "waitlist": "96/100"
+    },
+    {
+        "course": "162",
+        "crn": "21972",
+        "schedule": "Monday,Thursday | 08:30  AM - 09:50  AM",
+        "seats": "35/177",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Mathematics for Elementary School Teachers II",
+        "waitlist": "60/60"
+    },
+    {
+        "course": "200",
+        "crn": "21973",
+        "schedule": "Tuesday,Wednesday,Friday | 08:30  AM - 09:20  AM",
+        "seats": "48/150",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Calculus III",
+        "waitlist": "100/100"
+    },
+    {
+        "course": "200",
+        "crn": "21974",
+        "schedule": "Wednesday | 04:30  PM - 05:20  PM",
+        "seats": "1/60",
+        "section": "T01",
+        "subject": "MATH",
+        "title": "Calculus III",
+        "waitlist": "98/100"
+    },
+    {
+        "course": "200",
+        "crn": "21975",
+        "schedule": "Wednesday | 05:30  PM - 06:20  PM",
+        "seats": "9/50",
+        "section": "T02",
+        "subject": "MATH",
+        "title": "Calculus III",
+        "waitlist": "30/30"
+    },
+    {
+        "course": "202",
+        "crn": "21977",
+        "schedule": "Monday,Thursday | 01:00  PM - 02:20  PM",
+        "seats": "97/180",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Intermediate Calculus for CSC and EOS",
+        "waitlist": "90/90"
+    },
+    {
+        "course": "202",
+        "crn": "21978",
+        "schedule": "Tuesday | 03:30  PM - 04:20  PM",
+        "seats": "0/60",
+        "section": "T01",
+        "subject": "MATH",
+        "title": "Intermediate Calculus for CSC and EOS",
+        "waitlist": "20/20"
+    },
+    {
+        "course": "202",
+        "crn": "21979",
+        "schedule": "Tuesday | 04:30  PM - 05:20  PM",
+        "seats": "45/60",
+        "section": "T02",
+        "subject": "MATH",
+        "title": "Intermediate Calculus for CSC and EOS",
+        "waitlist": "20/20"
+    },
+    {
+        "course": "202",
+        "crn": "21980",
+        "schedule": "Tuesday | 05:30  PM - 06:20  PM",
+        "seats": "52/60",
+        "section": "T03",
+        "subject": "MATH",
+        "title": "Intermediate Calculus for CSC and EOS",
+        "waitlist": "20/20"
+    },
+    {
+        "course": "204",
+        "crn": "21981",
+        "schedule": "Tuesday,Wednesday,Friday | 08:30  AM - 09:20  AM",
+        "seats": "33/180",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Calculus IV",
+        "waitlist": "90/90"
+    },
+    {
+        "course": "204",
+        "crn": "21982",
+        "schedule": "Monday,Thursday | 08:30  AM - 09:50  AM",
+        "seats": "13/180",
+        "section": "A02",
+        "subject": "MATH",
+        "title": "Calculus IV",
+        "waitlist": "90/90"
+    },
+    {
+        "course": "204",
+        "crn": "21983",
+        "schedule": "Thursday | 03:30  PM - 04:20  PM",
+        "seats": "3/60",
+        "section": "T01",
+        "subject": "MATH",
+        "title": "Calculus IV",
+        "waitlist": "35/35"
+    },
+    {
+        "course": "204",
+        "crn": "21984",
+        "schedule": "Thursday | 04:30  PM - 05:20  PM",
+        "seats": "12/60",
+        "section": "T02",
+        "subject": "MATH",
+        "title": "Calculus IV",
+        "waitlist": "35/35"
+    },
+    {
+        "course": "204",
+        "crn": "21985",
+        "schedule": "Friday | 02:30  PM - 03:20  PM",
+        "seats": "0/60",
+        "section": "T03",
+        "subject": "MATH",
+        "title": "Calculus IV",
+        "waitlist": "35/35"
+    },
+    {
+        "course": "204",
+        "crn": "21986",
+        "schedule": "Friday | 03:30  PM - 04:20  PM",
+        "seats": "2/60",
+        "section": "T04",
+        "subject": "MATH",
+        "title": "Calculus IV",
+        "waitlist": "35/35"
+    },
+    {
+        "course": "204",
+        "crn": "21987",
+        "schedule": "Thursday | 03:30  PM - 04:20  PM",
+        "seats": "7/60",
+        "section": "T05",
+        "subject": "MATH",
+        "title": "Calculus IV",
+        "waitlist": "35/35"
+    },
+    {
+        "course": "204",
+        "crn": "21988",
+        "schedule": "Thursday | 04:30  PM - 05:20  PM",
+        "seats": "22/60",
+        "section": "T06",
+        "subject": "MATH",
+        "title": "Calculus IV",
+        "waitlist": "100/100"
+    },
+    {
+        "course": "211",
+        "crn": "21989",
+        "schedule": "Monday,Wednesday,Thursday | 02:30  PM - 03:20  PM",
+        "seats": "8/160",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Matrix Algebra I",
+        "waitlist": "70/70"
+    },
+    {
+        "course": "211",
+        "crn": "21990",
+        "schedule": "Tuesday,Wednesday,Friday | 08:30  AM - 09:20  AM",
+        "seats": "46/160",
+        "section": "A02",
+        "subject": "MATH",
+        "title": "Matrix Algebra I",
+        "waitlist": "70/70"
+    },
+    {
+        "course": "212",
+        "crn": "21991",
+        "schedule": "Tuesday,Wednesday,Friday | 12:30  PM - 01:20  PM",
+        "seats": "12/60",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Introduction to Algebra",
+        "waitlist": "30/30"
+    },
+    {
+        "course": "222",
+        "crn": "21992",
+        "schedule": "Tuesday,Wednesday,Friday | 09:30  AM - 10:20  AM",
+        "seats": "18/60",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Discrete and Combinatorial Mathematics",
+        "waitlist": "32/32"
+    },
+    {
+        "course": "236",
+        "crn": "21993",
+        "schedule": "Tuesday,Wednesday,Friday | 11:30  AM - 12:20  PM",
+        "seats": "16/60",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Introduction to Real Analysis",
+        "waitlist": "30/30"
+    },
+    {
+        "course": "312",
+        "crn": "21994",
+        "schedule": "Monday,Thursday | 10:00  AM - 11:20  AM",
+        "seats": "23/45",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Abstract Algebra I",
+        "waitlist": "22/22"
+    },
+    {
+        "course": "322",
+        "crn": "21995",
+        "schedule": "Tuesday,Wednesday,Friday | 09:30  AM - 10:20  AM",
+        "seats": "18/45",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Combinatorial Structures and Enumeration",
+        "waitlist": "100/100"
+    },
+    {
+        "course": "335",
+        "crn": "21996",
+        "schedule": "Tuesday,Wednesday,Friday | 11:30  AM - 12:20  PM",
+        "seats": "27/45",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Real Analysis",
+        "waitlist": "22/22"
+    },
+    {
+        "course": "346",
+        "crn": "21997",
+        "schedule": "Monday,Thursday | 01:00  PM - 02:20  PM",
+        "seats": "11/70",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Introduction to Partial Differential Equations",
+        "waitlist": "35/35"
+    },
+    {
+        "course": "348",
+        "crn": "21998",
+        "schedule": "Tuesday,Wednesday,Friday | 12:30  PM - 01:20  PM",
+        "seats": "11/45",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Numerical Methods",
+        "waitlist": "20/20"
+    },
+    {
+        "course": "352",
+        "crn": "21999",
+        "schedule": "Tuesday,Wednesday,Friday | 10:30  AM - 11:20  AM",
+        "seats": "42/70",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Introduction to Probability",
+        "waitlist": "30/30"
+    },
+    {
+        "course": "365",
+        "crn": "22000",
+        "schedule": "Monday,Thursday | 11:30  AM - 12:50  PM",
+        "seats": "37/45",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Introduction to Topology",
+        "waitlist": "22/22"
+    },
+    {
+        "course": "366",
+        "crn": "24055",
+        "schedule": "Tuesday,Wednesday,Friday | 11:30  AM - 12:20  PM",
+        "seats": "43/62",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Geometry",
+        "waitlist": "22/22"
+    },
+    {
+        "course": "376",
+        "crn": "22002",
+        "schedule": "Tuesday,Wednesday,Friday | 01:30  PM - 02:20  PM",
+        "seats": "40/60",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Introduction to Mathematical Biology",
+        "waitlist": "100/100"
+    },
+    {
+        "course": "412",
+        "crn": "22003",
+        "schedule": "Monday,Thursday | 01:00  PM - 02:20  PM",
+        "seats": "19/30",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Abstract Algebra II",
+        "waitlist": "15/15"
+    },
+    {
+        "course": "427",
+        "crn": "22004",
+        "schedule": "Tuesday,Wednesday,Friday | 11:30  AM - 12:20  PM",
+        "seats": "7/25",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Combinatorial Designs",
+        "waitlist": "10/10"
+    },
+    {
+        "course": "436",
+        "crn": "22005",
+        "schedule": "Tuesday,Wednesday,Friday | 10:30  AM - 11:20  AM",
+        "seats": "18/25",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Calculus on Manifolds",
+        "waitlist": "12/12"
+    },
+    {
+        "course": "449",
+        "crn": "22006",
+        "schedule": "Monday,Thursday | 11:30  AM - 12:50  PM",
+        "seats": "6/25",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Scientific Computing",
+        "waitlist": "8/8"
+    },
+    {
+        "course": "462",
+        "crn": "22007",
+        "schedule": "Tuesday,Wednesday,Friday | 01:30  PM - 02:20  PM",
+        "seats": "8/20",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "TOPICS IN NUMBER THEORY: Algebraic Number Theory",
+        "waitlist": "10/10"
+    },
+    {
+        "course": "465",
+        "crn": "23825",
+        "schedule": "Tuesday,Wednesday,Friday | 09:30  AM - 10:20  AM",
+        "seats": "2/12",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "TOPICS IN TOPOLOGY: Algebraic Topology",
+        "waitlist": "100/100"
+    },
+    {
+        "course": "477",
+        "crn": "22008",
+        "schedule": "Monday,Thursday | 10:00  AM - 11:20  AM",
+        "seats": "6/30",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Stochastic Financial Modelling",
+        "waitlist": "12/12"
+    },
+    {
+        "course": "492",
+        "crn": "22009",
+        "schedule": "Monday,Wednesday,Thursday | 02:30  PM - 03:20  PM",
+        "seats": "14/25",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "TOPICS IN APPLIED MATHEMATICS: Stochastic Differential Eqns",
+        "waitlist": "12/12"
+    },
+    {
+        "course": "493",
+        "crn": "22010",
+        "schedule": "Monday,Thursday | 08:30  AM - 09:50  AM",
+        "seats": "14/20",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "TOPICS IN PURE MATHEMATICS: C*-Algebras",
+        "waitlist": "10/10"
+    },
+    {
+        "course": "498",
+        "crn": "23551",
+        "schedule": "Tuesday | 02:30  PM - 04:20  PM",
+        "seats": "5/20",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Seminar and Independent Project",
+        "waitlist": "10/10"
+    },
+    {
+        "course": "529",
+        "crn": "22012",
+        "schedule": "Tuesday,Wednesday,Friday | 11:30  AM - 12:20  PM",
+        "seats": "6/10",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "TPCS: DISCRETE MATH: Combinatorial Designs",
+        "waitlist": "5/5"
+    },
+    {
+        "course": "529",
+        "crn": "24186",
+        "schedule": "None | -",
+        "seats": "5/5",
+        "section": "A02",
+        "subject": "MATH",
+        "title": "Topics in Discrete Mathematics",
+        "waitlist": "N/A"
+    },
+    {
+        "course": "533",
+        "crn": "22014",
+        "schedule": "Monday,Thursday | 08:30  AM - 09:50  AM",
+        "seats": "8/10",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "TPCS:OPERATOR THEORY+ALGB: C*-Algebras",
+        "waitlist": "5/5"
+    },
+    {
+        "course": "540",
+        "crn": "23826",
+        "schedule": "Tuesday,Wednesday,Friday | 09:30  AM - 10:20  AM",
+        "seats": "2/4",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Topology",
+        "waitlist": "30/30"
+    },
+    {
+        "course": "549",
+        "crn": "22015",
+        "schedule": "Monday,Thursday | 11:30  AM - 12:50  PM",
+        "seats": "0/6",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Scientific Computing",
+        "waitlist": "5/5"
+    },
+    {
+        "course": "550",
+        "crn": "22016",
+        "schedule": "Monday,Wednesday,Thursday | 02:30  PM - 03:20  PM",
+        "seats": "2/10",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "TPCS:APPLIED MATHEMATICS: Stochastic Differential Eqns",
+        "waitlist": "4/4"
+    },
+    {
+        "course": "563",
+        "crn": "22017",
+        "schedule": "Tuesday,Wednesday,Friday | 01:30  PM - 02:20  PM",
+        "seats": "4/5",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Algebraic Number Theory",
+        "waitlist": "3/3"
+    },
+    {
+        "course": "586",
+        "crn": "22018",
+        "schedule": "Wednesday | 03:30  PM - 04:50  PM",
+        "seats": "19/20",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Operator Theory Seminar",
+        "waitlist": "10/10"
+    },
+    {
+        "course": "587",
+        "crn": "22019",
+        "schedule": "Wednesday | 02:30  PM - 03:20  PM",
+        "seats": "25/25",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Applied Math Seminar",
+        "waitlist": "30/30"
+    },
+    {
+        "course": "588",
+        "crn": "22020",
+        "schedule": "Thursday | 10:00  AM - 11:20  AM",
+        "seats": "29/30",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Discrete Mathematics Seminar",
+        "waitlist": "30/30"
+    },
+    {
+        "course": "599",
+        "crn": "22021",
+        "schedule": "None | -",
+        "seats": "42/50",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Master's Thesis",
+        "waitlist": "N/A"
+    },
+    {
+        "course": "599",
+        "crn": "22022",
+        "schedule": "None | -",
+        "seats": "14/15",
+        "section": "A02",
+        "subject": "MATH",
+        "title": "Master's Thesis",
+        "waitlist": "N/A"
+    },
+    {
+        "course": "693",
+        "crn": "22023",
+        "schedule": "None | -",
+        "seats": "21/30",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Candidacy Examination",
+        "waitlist": "15/15"
+    },
+    {
+        "course": "693",
+        "crn": "22024",
+        "schedule": "None | -",
+        "seats": "20/20",
+        "section": "A02",
+        "subject": "MATH",
+        "title": "Candidacy Examination",
+        "waitlist": "10/10"
+    },
+    {
+        "course": "699",
+        "crn": "22025",
+        "schedule": "None | -",
+        "seats": "22/30",
+        "section": "A01",
+        "subject": "MATH",
+        "title": "Dissertation",
+        "waitlist": "15/15"
+    },
+    {
+        "course": "699",
+        "crn": "22026",
+        "schedule": "None | -",
+        "seats": "19/20",
+        "section": "A02",
+        "subject": "MATH",
+        "title": "Dissertation",
+        "waitlist": "10/10"
+    }
+]

@@ -6,41 +6,47 @@
     <title>UVic Course Lookup</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col items-center py-12">
+<body class="bg-gray-100 min-h-screen flex flex-col items-center py-12 px-4">
 
-    <div class="w-full max-w-2xl bg-white shadow-xl rounded-2xl p-8">
-        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">UVic Course Lookup</h1>
+    <div class="w-full max-w-2xl bg-white shadow-2xl rounded-3xl p-8">
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-2 text-center">UVic Course Lookup</h1>
+        <p class="text-gray-500 text-center mb-8">Real-time seat and schedule scraper</p>
         
-        <div class="flex gap-4 mb-8">
-            <input type="text" id="subjectInput" placeholder="Enter Subject (e.g. CSC)" 
-                class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none uppercase">
+        <div class="flex gap-3 mb-8">
+            <input type="text" id="subjectInput" placeholder="Subject (e.g. CSC)" 
+                class="flex-1 px-5 py-4 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-0 outline-none uppercase font-semibold transition-all">
             <button onclick="startScrape()" id="btn"
-                class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all">
-                Fetch Courses
+                class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-blue-200 transition-all active:scale-95">
+                Fetch
             </button>
         </div>
 
-        <div id="status" class="hidden mb-4 p-4 rounded-lg text-center font-medium"></div>
+        <div id="status" class="hidden mb-6 p-4 rounded-xl text-center font-semibold animate-pulse"></div>
 
         <div id="results" class="space-y-4"></div>
     </div>
 
     <script>
-        // Helper function to determine color based on fraction "rem/total"
         function getStatusColor(fraction) {
-            if (!fraction || fraction === "N/A") return "text-gray-500 bg-gray-100";
-            
+            if (!fraction || fraction === "N/A") return "text-gray-500 bg-gray-100 border-gray-200";
             const [rem, total] = fraction.split('/').map(Number);
-            if (total === 0 || rem === 0) return "text-red-700 bg-red-100 border-red-200";
-            
+            if (total === 0 || rem === 0) return "text-red-700 bg-red-50 border-red-200";
             const percentLeft = (rem / total) * 100;
+            if (percentLeft >= 25) return "text-emerald-700 bg-emerald-50 border-emerald-200";
+            if (percentLeft > 0) return "text-amber-700 bg-amber-50 border-amber-200";
+            return "text-red-700 bg-red-50 border-red-200";
+        }
 
-            if (percentLeft >= 25) {
-                return "text-green-700 bg-green-100 border-green-200";
-            } else if (percentLeft > 0) {
-                return "text-yellow-700 bg-yellow-100 border-yellow-200";
+        function getSectionTheme(section) {
+            const char = section.charAt(0).toUpperCase();
+            
+            if (char === 'B') {
+                return { label: "LAB", border: "border-purple-500", bg: "bg-purple-50", text: "text-purple-700" };
+            } else if (char === 'T') {
+                return { label: "TUTORIAL", border: "border-orange-500", bg: "bg-orange-50", text: "text-orange-700" };
             } else {
-                return "text-red-700 bg-red-100 border-red-200";
+                // Lecture - Explicitly set to Blue
+                return { label: "LECTURE", border: "border-green-500", bg: "bg-green-50", text: "text-green-700" };
             }
         }
 
@@ -53,10 +59,9 @@
             if (!subject) return alert("Please enter a subject");
 
             btn.disabled = true;
-            btn.innerText = "Scraping...";
-            status.className = "mb-4 p-4 rounded-lg text-center font-medium bg-yellow-100 text-yellow-700";
-            status.innerText = "Selenium is starting... please wait ~10 seconds.";
-            status.classList.remove('hidden');
+            btn.innerText = "Working...";
+            status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-blue-50 text-blue-700 block";
+            status.innerText = "Launching Scraper...";
             resultsDiv.innerHTML = "";
 
             try {
@@ -69,34 +74,42 @@
                 const result = await response.json();
                 
                 if (result.status === "success") {
-                    status.className = "mb-4 p-4 rounded-lg text-center font-medium bg-green-100 text-green-700";
-                    status.innerText = `Found ${result.data.length} courses!`;
+                    status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-emerald-50 text-emerald-700";
+                    status.innerText = `Successfully loaded ${result.data.length} sections`;
                     
                     result.data.forEach(course => {
-                        // Calculate colors for seats and waitlist
                         const seatColor = getStatusColor(course.seats);
-                        const waitlistColor = getStatusColor(course.waitlist);
+                        const waitColor = getStatusColor(course.waitlist);
+                        const theme = getSectionTheme(course.section);
 
                         const card = document.createElement('div');
-                        card.className = "border-l-4 border-blue-500 bg-white p-5 rounded-r-lg shadow-sm border border-gray-200";
+                        // Left accent bar
+                        card.className = `border-l-8 ${theme.border} bg-white p-6 rounded-2xl shadow-sm border border-gray-100`;
                         card.innerHTML = `
                             <div class="flex justify-between items-start">
                                 <div>
-                                    <h3 class="font-bold text-lg text-gray-800">${course.subject} ${course.course}</h3>
-                                    <p class="text-sm font-medium text-blue-600 uppercase tracking-wide">Section ${course.section} • CRN ${course.crn}</p>
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="text-[10px] font-black px-2 py-0.5 rounded border-2 ${theme.border} ${theme.bg} ${theme.text} uppercase tracking-widest leading-tight">
+                                            ${theme.label}
+                                        </span>
+                                        <h3 class="font-bold text-xl text-gray-900">${course.subject} ${course.course}</h3>
+                                    </div>
+                                    <p class="text-sm font-bold text-gray-400 uppercase tracking-tighter">Section ${course.section} • CRN ${course.crn}</p>
                                 </div>
                                 <div class="flex flex-col gap-2 items-end">
-                                    <span class="px-3 py-1 rounded-full text-xs font-bold border ${seatColor}">
-                                        Seats: ${course.seats || 'N/A'}
-                                    </span>
-                                    <span class="px-3 py-1 rounded-full text-xs font-bold border ${waitlistColor}">
-                                        Wait: ${course.waitlist || 'N/A'}
-                                    </span>
+                                    <div class="flex flex-col items-end">
+                                        <span class="text-[9px] uppercase font-bold text-gray-400 mr-1">Available Seats</span>
+                                        <span class="px-3 py-1 rounded-lg text-sm font-bold border ${seatColor}">${course.seats}</span>
+                                    </div>
+                                    <div class="flex flex-col items-end">
+                                        <span class="text-[9px] uppercase font-bold text-gray-400 mr-1">Waitlist</span>
+                                        <span class="px-3 py-1 rounded-lg text-sm font-bold border ${waitColor}">${course.waitlist}</span>
+                                    </div>
                                 </div>
                             </div>
-                            <p class="text-gray-700 mt-2">${course.title}</p>
-                            <div class="flex items-center text-sm text-gray-500 mt-3 bg-gray-50 p-2 rounded">
-                                <span>🕒 ${course.schedule}</span>
+                            <h4 class="text-gray-700 font-medium mt-3 leading-tight">${course.title}</h4>
+                            <div class="flex items-center text-sm font-semibold text-gray-500 mt-4 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                                <span class="mr-2">📅</span> ${course.schedule}
                             </div>
                         `;
                         resultsDiv.appendChild(card);
@@ -105,11 +118,11 @@
                     throw new Error(result.message);
                 }
             } catch (err) {
-                status.className = "mb-4 p-4 rounded-lg text-center font-medium bg-red-100 text-red-700";
+                status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-red-50 text-red-700";
                 status.innerText = "Error: " + err.message;
             } finally {
                 btn.disabled = false;
-                btn.innerText = "Fetch Courses";
+                btn.innerText = "Fetch";
             }
         }
     </script>
