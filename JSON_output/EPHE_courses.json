@@ -2,26 +2,29 @@
     {
         "course": "113",
         "crn": "23759",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Thursday | 09:30  AM - 11:20  AM",
         "seats": "0/24",
         "section": "A01",
         "subject": "EPHE",
         "title": "Golf",
-        "waitlist": "13/20"
+        "waitlist": "14/20"
     },
     {
         "course": "120",
         "crn": "21355",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 12:30  PM - 02:20  PM",
-        "seats": "2/27",
+        "seats": "1/27",
         "section": "A01",
         "subject": "EPHE",
         "title": "Basketball",
-        "waitlist": "14/20"
+        "waitlist": "15/20"
     },
     {
         "course": "122",
         "crn": "21356",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 10:30  AM - 12:20  PM",
         "seats": "0/24",
         "section": "A01",
@@ -32,16 +35,18 @@
     {
         "course": "133",
         "crn": "21357",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday | 01:30  PM - 03:20  PM",
         "seats": "0/25",
         "section": "A01",
         "subject": "EPHE",
         "title": "Strength Training",
-        "waitlist": "17/20"
+        "waitlist": "18/20"
     },
     {
         "course": "141",
         "crn": "21358",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday,Wednesday,Friday | 08:30  AM - 09:20  AM",
         "seats": "9/190",
         "section": "A01",
@@ -52,6 +57,7 @@
     {
         "course": "141",
         "crn": "21359",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday | 10:30  AM - 12:20  PM",
         "seats": "0/19",
         "section": "B01",
@@ -62,6 +68,7 @@
     {
         "course": "141",
         "crn": "21360",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday | 12:30  PM - 02:20  PM",
         "seats": "0/19",
         "section": "B02",
@@ -72,6 +79,7 @@
     {
         "course": "141",
         "crn": "21361",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday | 02:30  PM - 04:20  PM",
         "seats": "0/19",
         "section": "B03",
@@ -82,6 +90,7 @@
     {
         "course": "141",
         "crn": "21362",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday | 04:30  PM - 06:20  PM",
         "seats": "3/19",
         "section": "B04",
@@ -92,6 +101,7 @@
     {
         "course": "141",
         "crn": "21363",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 10:30  AM - 12:20  PM",
         "seats": "4/19",
         "section": "B05",
@@ -102,6 +112,7 @@
     {
         "course": "141",
         "crn": "21364",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 12:30  PM - 02:20  PM",
         "seats": "1/19",
         "section": "B06",
@@ -112,6 +123,7 @@
     {
         "course": "141",
         "crn": "21365",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 02:30  PM - 04:20  PM",
         "seats": "1/19",
         "section": "B07",
@@ -122,6 +134,7 @@
     {
         "course": "141",
         "crn": "21366",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Thursday | 10:30  AM - 12:20  PM",
         "seats": "1/19",
         "section": "B08",
@@ -132,6 +145,7 @@
     {
         "course": "141",
         "crn": "21367",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Thursday | 12:30  PM - 02:20  PM",
         "seats": "0/19",
         "section": "B09",
@@ -142,6 +156,7 @@
     {
         "course": "141",
         "crn": "21368",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Thursday | 02:30  PM - 04:20  PM",
         "seats": "1/19",
         "section": "B10",
@@ -152,6 +167,7 @@
     {
         "course": "142",
         "crn": "21369",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday,Thursday | 11:30  AM - 12:50  PM",
         "seats": "13/140",
         "section": "A01",
@@ -162,8 +178,9 @@
     {
         "course": "142",
         "crn": "21370",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday,Thursday | 10:00  AM - 11:20  AM",
-        "seats": "0/105",
+        "seats": "2/105",
         "section": "A02",
         "subject": "EPHE",
         "title": "Personal Health, Wellness and Potential",
@@ -172,6 +189,7 @@
     {
         "course": "143",
         "crn": "21371",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday,Wednesday,Friday | 09:30  AM - 10:20  AM",
         "seats": "1/75",
         "section": "A01",
@@ -182,6 +200,7 @@
     {
         "course": "143",
         "crn": "21372",
+        "instructionalMethod": "Fully Online",
         "schedule": "None | -",
         "seats": "2/75",
         "section": "A02",
@@ -192,6 +211,7 @@
     {
         "course": "143",
         "crn": "21373",
+        "instructionalMethod": "Fully Online",
         "schedule": "None | -",
         "seats": "1/35",
         "section": "A03",
@@ -202,6 +222,7 @@
     {
         "course": "144",
         "crn": "21374",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Friday | 08:30  AM - 11:20  AM",
         "seats": "1/35",
         "section": "A01",
@@ -212,6 +233,7 @@
     {
         "course": "144",
         "crn": "21375",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Friday | 12:30  PM - 03:20  PM",
         "seats": "0/35",
         "section": "A02",
@@ -222,6 +244,7 @@
     {
         "course": "155",
         "crn": "21376",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday,Thursday | 04:30  PM - 05:50  PM",
         "seats": "0/200",
         "section": "A01",
@@ -232,16 +255,18 @@
     {
         "course": "155",
         "crn": "21377",
+        "instructionalMethod": "Fully Online",
         "schedule": "None | -",
-        "seats": "0/120",
+        "seats": "1/120",
         "section": "A02",
         "subject": "EPHE",
         "title": "Introduction to Nutrition: Concepts and Controversies",
-        "waitlist": "53/100"
+        "waitlist": "54/100"
     },
     {
         "course": "160",
         "crn": "21378",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday,Thursday | 01:00  PM - 02:20  PM",
         "seats": "0/176",
         "section": "A01",
@@ -252,6 +277,7 @@
     {
         "course": "160",
         "crn": "21379",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday | 10:30  AM - 12:20  PM",
         "seats": "0/16",
         "section": "B01",
@@ -262,6 +288,7 @@
     {
         "course": "160",
         "crn": "21380",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday | 12:30  PM - 02:20  PM",
         "seats": "0/16",
         "section": "B02",
@@ -272,6 +299,7 @@
     {
         "course": "160",
         "crn": "21381",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday | 02:30  PM - 04:20  PM",
         "seats": "0/16",
         "section": "B03",
@@ -282,6 +310,7 @@
     {
         "course": "160",
         "crn": "21382",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday | 04:30  PM - 06:20  PM",
         "seats": "0/16",
         "section": "B04",
@@ -292,6 +321,7 @@
     {
         "course": "160",
         "crn": "21383",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday | 06:30  PM - 08:20  PM",
         "seats": "0/16",
         "section": "B05",
@@ -302,6 +332,7 @@
     {
         "course": "160",
         "crn": "21384",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 08:30  AM - 10:20  AM",
         "seats": "0/16",
         "section": "B06",
@@ -312,6 +343,7 @@
     {
         "course": "160",
         "crn": "21385",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 10:30  AM - 12:20  PM",
         "seats": "0/16",
         "section": "B07",
@@ -322,6 +354,7 @@
     {
         "course": "160",
         "crn": "21386",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 12:30  PM - 02:20  PM",
         "seats": "0/16",
         "section": "B08",
@@ -332,6 +365,7 @@
     {
         "course": "160",
         "crn": "21387",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 02:30  PM - 04:20  PM",
         "seats": "0/16",
         "section": "B09",
@@ -342,6 +376,7 @@
     {
         "course": "160",
         "crn": "21388",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 04:30  PM - 06:20  PM",
         "seats": "0/16",
         "section": "B10",
@@ -352,6 +387,7 @@
     {
         "course": "160",
         "crn": "24170",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 06:30  PM - 08:20  PM",
         "seats": "0/16",
         "section": "B11",
@@ -362,6 +398,7 @@
     {
         "course": "200",
         "crn": "21389",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday | 08:30  AM - 09:50  AM",
         "seats": "8/60",
         "section": "A01",
@@ -372,6 +409,7 @@
     {
         "course": "200",
         "crn": "21390",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 08:30  AM - 09:50  AM",
         "seats": "9/30",
         "section": "B01",
@@ -382,6 +420,7 @@
     {
         "course": "200",
         "crn": "21391",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 10:00  AM - 11:20  AM",
         "seats": "0/30",
         "section": "B02",
@@ -392,6 +431,7 @@
     {
         "course": "244",
         "crn": "21392",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday,Thursday | 08:30  AM - 09:50  AM",
         "seats": "0/35",
         "section": "A01",
@@ -402,6 +442,7 @@
     {
         "course": "246",
         "crn": "21393",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday,Wednesday | 03:30  PM - 04:50  PM",
         "seats": "8/40",
         "section": "A01",
@@ -412,6 +453,7 @@
     {
         "course": "247",
         "crn": "21394",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday,Wednesday,Friday | 10:30  AM - 11:20  AM",
         "seats": "0/75",
         "section": "A01",
@@ -422,6 +464,7 @@
     {
         "course": "252",
         "crn": "21395",
+        "instructionalMethod": "Fully Online",
         "schedule": "None | -",
         "seats": "2/30",
         "section": "A01",
@@ -432,6 +475,7 @@
     {
         "course": "253",
         "crn": "21396",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday,Wednesday,Friday | 10:30  AM - 11:20  AM",
         "seats": "34/60",
         "section": "A01",
@@ -442,6 +486,7 @@
     {
         "course": "271",
         "crn": "21397",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday,Thursday | 01:00  PM - 02:20  PM",
         "seats": "0/38",
         "section": "A01",
@@ -452,6 +497,7 @@
     {
         "course": "311",
         "crn": "21398",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday,Thursday | 10:00  AM - 11:20  AM",
         "seats": "0/33",
         "section": "A01",
@@ -462,6 +508,7 @@
     {
         "course": "311",
         "crn": "21399",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday,Thursday | 01:00  PM - 02:20  PM",
         "seats": "2/33",
         "section": "A02",
@@ -472,6 +519,7 @@
     {
         "course": "311",
         "crn": "23886",
+        "instructionalMethod": "Face-to-face",
         "schedule": "None | -",
         "seats": "10/25",
         "section": "A03",
@@ -482,6 +530,7 @@
     {
         "course": "312",
         "crn": "21400",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday,Thursday | 08:30  AM - 09:50  AM",
         "seats": "5/33",
         "section": "A01",
@@ -492,6 +541,7 @@
     {
         "course": "312",
         "crn": "21401",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Thursday | 02:30  PM - 05:20  PM",
         "seats": "9/15",
         "section": "A02",
@@ -502,16 +552,18 @@
     {
         "course": "341",
         "crn": "21402",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday,Thursday | 01:00  PM - 02:20  PM",
-        "seats": "3/64",
+        "seats": "2/64",
         "section": "A01",
         "subject": "EPHE",
         "title": "Biomechanics",
-        "waitlist": "49/50"
+        "waitlist": "50/50"
     },
     {
         "course": "341",
         "crn": "21403",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday | 10:30  AM - 12:20  PM",
         "seats": "3/16",
         "section": "B01",
@@ -522,6 +574,7 @@
     {
         "course": "341",
         "crn": "21404",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday | 12:30  PM - 02:20  PM",
         "seats": "0/16",
         "section": "B02",
@@ -532,6 +585,7 @@
     {
         "course": "341",
         "crn": "21405",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday | 02:30  PM - 04:20  PM",
         "seats": "0/16",
         "section": "B03",
@@ -542,6 +596,7 @@
     {
         "course": "341",
         "crn": "21407",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 02:30  PM - 04:20  PM",
         "seats": "0/16",
         "section": "B05",
@@ -552,6 +607,7 @@
     {
         "course": "344",
         "crn": "21408",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday,Wednesday,Friday | 08:30  AM - 09:20  AM",
         "seats": "1/32",
         "section": "A01",
@@ -562,6 +618,7 @@
     {
         "course": "344",
         "crn": "21409",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday | 08:30  AM - 09:50  AM",
         "seats": "1/16",
         "section": "B01",
@@ -572,6 +629,7 @@
     {
         "course": "344",
         "crn": "21410",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Thursday | 08:30  AM - 09:50  AM",
         "seats": "0/16",
         "section": "B02",
@@ -582,6 +640,7 @@
     {
         "course": "346",
         "crn": "21412",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday,Wednesday,Friday | 11:30  AM - 12:20  PM",
         "seats": "0/60",
         "section": "A01",
@@ -592,6 +651,7 @@
     {
         "course": "348",
         "crn": "21413",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday,Thursday | 11:30  AM - 12:50  PM",
         "seats": "0/64",
         "section": "A01",
@@ -602,6 +662,7 @@
     {
         "course": "348",
         "crn": "21414",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday | 04:30  PM - 06:20  PM",
         "seats": "0/20",
         "section": "B01",
@@ -612,6 +673,7 @@
     {
         "course": "348",
         "crn": "21415",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Thursday | 02:30  PM - 04:20  PM",
         "seats": "2/25",
         "section": "B02",
@@ -622,6 +684,7 @@
     {
         "course": "348",
         "crn": "21416",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Friday | 02:30  PM - 04:20  PM",
         "seats": "2/22",
         "section": "B03",
@@ -632,6 +695,7 @@
     {
         "course": "355",
         "crn": "21418",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday,Wednesday,Friday | 09:30  AM - 10:20  AM",
         "seats": "2/64",
         "section": "A01",
@@ -642,6 +706,7 @@
     {
         "course": "355",
         "crn": "21419",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday | 02:30  PM - 04:20  PM",
         "seats": "0/16",
         "section": "B01",
@@ -652,6 +717,7 @@
     {
         "course": "355",
         "crn": "21420",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday | 12:30  PM - 02:20  PM",
         "seats": "1/16",
         "section": "B02",
@@ -662,6 +728,7 @@
     {
         "course": "355",
         "crn": "21421",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 10:30  AM - 12:20  PM",
         "seats": "0/16",
         "section": "B03",
@@ -672,6 +739,7 @@
     {
         "course": "355",
         "crn": "21422",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 12:30  PM - 02:20  PM",
         "seats": "1/16",
         "section": "B04",
@@ -682,6 +750,7 @@
     {
         "course": "402",
         "crn": "21424",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday | 10:30  AM - 01:20  PM",
         "seats": "31/50",
         "section": "A01",
@@ -692,6 +761,7 @@
     {
         "course": "442",
         "crn": "21425",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday,Wednesday,Friday | 10:30  AM - 11:20  AM",
         "seats": "8/32",
         "section": "A01",
@@ -702,6 +772,7 @@
     {
         "course": "442",
         "crn": "21426",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Friday | 02:30  PM - 04:20  PM",
         "seats": "8/32",
         "section": "B01",
@@ -712,6 +783,7 @@
     {
         "course": "444",
         "crn": "21427",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday,Thursday | 08:30  AM - 09:50  AM",
         "seats": "11/60",
         "section": "A01",
@@ -722,6 +794,7 @@
     {
         "course": "444",
         "crn": "21428",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday | 10:00  AM - 11:50  AM",
         "seats": "0/15",
         "section": "B01",
@@ -732,6 +805,7 @@
     {
         "course": "444",
         "crn": "21429",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday | 12:30  PM - 02:20  PM",
         "seats": "2/15",
         "section": "B02",
@@ -742,6 +816,7 @@
     {
         "course": "444",
         "crn": "21431",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Thursday | 10:30  AM - 12:20  PM",
         "seats": "9/15",
         "section": "B04",
@@ -752,6 +827,7 @@
     {
         "course": "444",
         "crn": "21432",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Thursday | 02:30  PM - 04:20  PM",
         "seats": "0/15",
         "section": "B05",
@@ -762,6 +838,7 @@
     {
         "course": "445",
         "crn": "21433",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday,Thursday | 02:30  PM - 03:50  PM",
         "seats": "26/50",
         "section": "A01",
@@ -772,6 +849,7 @@
     {
         "course": "447",
         "crn": "21434",
+        "instructionalMethod": "Online with some face-to-face",
         "schedule": "None | -",
         "seats": "6/30",
         "section": "A01",
@@ -782,6 +860,7 @@
     {
         "course": "449",
         "crn": "21435",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday,Thursday | 04:30  PM - 05:50  PM",
         "seats": "18/50",
         "section": "A01",
@@ -792,6 +871,7 @@
     {
         "course": "450",
         "crn": "21436",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday,Wednesday | 02:30  PM - 03:50  PM",
         "seats": "3/40",
         "section": "A01",
@@ -802,6 +882,7 @@
     {
         "course": "450",
         "crn": "21437",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Tuesday | 08:30  AM - 10:20  AM",
         "seats": "1/20",
         "section": "B01",
@@ -812,6 +893,7 @@
     {
         "course": "450",
         "crn": "21438",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 08:30  AM - 10:20  AM",
         "seats": "2/20",
         "section": "B02",
@@ -822,6 +904,7 @@
     {
         "course": "452",
         "crn": "21439",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday,Thursday | 10:00  AM - 11:20  AM",
         "seats": "7/32",
         "section": "A01",
@@ -832,6 +915,7 @@
     {
         "course": "454",
         "crn": "21440",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 11:30  AM - 02:20  PM",
         "seats": "22/35",
         "section": "A01",
@@ -842,6 +926,7 @@
     {
         "course": "480",
         "crn": "21441",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Thursday | 04:30  PM - 07:20  PM",
         "seats": "5/8",
         "section": "A01",
@@ -852,6 +937,7 @@
     {
         "course": "487",
         "crn": "21442",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Monday,Thursday | 02:30  PM - 03:50  PM",
         "seats": "0/24",
         "section": "A02",
@@ -862,6 +948,7 @@
     {
         "course": "581",
         "crn": "21443",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Thursday | 04:30  PM - 07:20  PM",
         "seats": "6/16",
         "section": "A01",
@@ -872,6 +959,7 @@
     {
         "course": "598",
         "crn": "21444",
+        "instructionalMethod": "Face-to-face",
         "schedule": "TBA | ",
         "seats": "49/50",
         "section": "A01",
@@ -882,6 +970,7 @@
     {
         "course": "598",
         "crn": "21445",
+        "instructionalMethod": "Face-to-face",
         "schedule": "TBA | ",
         "seats": "45/50",
         "section": "A02",
@@ -892,6 +981,7 @@
     {
         "course": "599",
         "crn": "21446",
+        "instructionalMethod": "Face-to-face",
         "schedule": "TBA | ",
         "seats": "34/50",
         "section": "A01",
@@ -902,6 +992,7 @@
     {
         "course": "599",
         "crn": "21447",
+        "instructionalMethod": "Face-to-face",
         "schedule": "TBA | ",
         "seats": "50/50",
         "section": "A02",
@@ -912,6 +1003,7 @@
     {
         "course": "673A",
         "crn": "21448",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 11:30  AM - 02:20  PM",
         "seats": "2/20",
         "section": "A01",
@@ -922,6 +1014,7 @@
     {
         "course": "673B",
         "crn": "21449",
+        "instructionalMethod": "Face-to-face",
         "schedule": "Wednesday | 11:30  AM - 02:20  PM",
         "seats": "7/12",
         "section": "A01",
@@ -932,6 +1025,7 @@
     {
         "course": "693",
         "crn": "21450",
+        "instructionalMethod": "Face-to-face",
         "schedule": "TBA | ",
         "seats": "48/50",
         "section": "A01",
@@ -942,6 +1036,7 @@
     {
         "course": "693",
         "crn": "21451",
+        "instructionalMethod": "Face-to-face",
         "schedule": "TBA | ",
         "seats": "48/50",
         "section": "A02",
@@ -952,6 +1047,7 @@
     {
         "course": "699",
         "crn": "21452",
+        "instructionalMethod": "Face-to-face",
         "schedule": "TBA | ",
         "seats": "43/50",
         "section": "A01",
@@ -962,6 +1058,7 @@
     {
         "course": "699",
         "crn": "21453",
+        "instructionalMethod": "Face-to-face",
         "schedule": "TBA | ",
         "seats": "48/50",
         "section": "A02",
