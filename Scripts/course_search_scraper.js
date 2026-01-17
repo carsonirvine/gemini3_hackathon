@@ -6,6 +6,7 @@ let targetSubject = window.targetSubject;
 function scrapeCurrentPage() {
     let rows = document.querySelectorAll('tr[data-id]');
 
+
     // Wait for rows to exist
     if (rows.length === 0) {
         setTimeout(scrapeCurrentPage, 1000);
@@ -48,6 +49,7 @@ function scrapeCurrentPage() {
             course: getProp("courseNumber"),
             section: getProp("sequenceNumber"),
             title: getProp("courseTitle"),
+            instructionalMethod: getProp("instructionalMethod"),
             seats: seatsFraction,
             waitlist: waitlistFraction,
             schedule: scheduleRaw.split("SMTWTFS")[0].trim() + " | " + 

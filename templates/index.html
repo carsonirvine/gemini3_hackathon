@@ -5,6 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UVic Course Lookup</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Modern Spinner Animation */
+        .spinner {
+            border: 3px solid rgba(0, 0, 0, 0.1);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border-left-color: #3b82f6;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col items-center py-12 px-4">
 
@@ -21,12 +39,13 @@
             </button>
         </div>
 
-        <div id="status" class="hidden mb-6 p-4 rounded-xl text-center font-semibold animate-pulse"></div>
+        <div id="status" class="hidden mb-6 p-4 rounded-xl text-center font-semibold"></div>
 
         <div id="results" class="space-y-4"></div>
     </div>
 
     <script>
+        // Colors for Seat/Waitlist Availability
         function getStatusColor(fraction) {
             if (!fraction || fraction === "N/A") return "text-gray-500 bg-gray-100 border-gray-200";
             const [rem, total] = fraction.split('/').map(Number);
@@ -37,17 +56,22 @@
             return "text-red-700 bg-red-50 border-red-200";
         }
 
+        // Colors for Section Type (Lecture, Lab, Tutorial)
         function getSectionTheme(section) {
             const char = section.charAt(0).toUpperCase();
-            
-            if (char === 'B') {
-                return { label: "LAB", border: "border-purple-500", bg: "bg-purple-50", text: "text-purple-700" };
-            } else if (char === 'T') {
-                return { label: "TUTORIAL", border: "border-orange-500", bg: "bg-orange-50", text: "text-orange-700" };
-            } else {
-                // Lecture - Explicitly set to Blue
-                return { label: "LECTURE", border: "border-green-500", bg: "bg-green-50", text: "text-green-700" };
-            }
+            if (char === 'B') return { label: "LAB", border: "border-purple-500", bg: "bg-purple-50", text: "text-purple-700" };
+            if (char === 'T') return { label: "TUTORIAL", border: "border-orange-500", bg: "bg-orange-50", text: "text-orange-700" };
+            return { label: "LECTURE", border: "border-green-500", bg: "bg-green-50", text: "text-green-700" };
+        }
+
+        // Colors for Instructional Method
+        function getMethodTheme(method) {
+            const m = method || "";
+            if (m.includes('Face-to-face')) return "bg-blue-100 text-blue-700 border-blue-200";
+            if (m.includes('Fully Online')) return "bg-purple-100 text-purple-700 border-purple-200";
+            if (m.includes('Blended')) return "bg-indigo-100 text-indigo-700 border-indigo-200";
+            if (m.includes('Online with some')) return "bg-cyan-100 text-cyan-700 border-cyan-200";
+            return "bg-gray-100 text-gray-700 border-gray-200";
         }
 
         async function startScrape() {
@@ -60,9 +84,9 @@
 
             btn.disabled = true;
             btn.innerText = "Working...";
-            status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-blue-50 text-blue-700 block";
-            status.innerText = "Launching Scraper...";
             resultsDiv.innerHTML = "";
+            status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-blue-50 text-blue-700 block animate-pulse";
+            status.innerHTML = `<div class="spinner"></div> <span>Searching all pages for ${subject.toUpperCase()}...</span>`;
 
             try {
                 const response = await fetch('/scrape', {
@@ -75,22 +99,28 @@
                 
                 if (result.status === "success") {
                     status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-emerald-50 text-emerald-700";
-                    status.innerText = `Successfully loaded ${result.data.length} sections`;
+                    status.innerHTML = `
+                        <div>Successfully loaded ${result.data.length} sections</div>
+                        <div class="text-[10px] uppercase tracking-widest mt-1 opacity-70">Search completed in ${result.search_time}s</div>
+                    `;
                     
                     result.data.forEach(course => {
                         const seatColor = getStatusColor(course.seats);
                         const waitColor = getStatusColor(course.waitlist);
                         const theme = getSectionTheme(course.section);
+                        const methodTheme = getMethodTheme(course.instructionalMethod);
 
                         const card = document.createElement('div');
-                        // Left accent bar
                         card.className = `border-l-8 ${theme.border} bg-white p-6 rounded-2xl shadow-sm border border-gray-100`;
                         card.innerHTML = `
                             <div class="flex justify-between items-start">
                                 <div>
-                                    <div class="flex items-center gap-2 mb-1">
+                                    <div class="flex flex-wrap items-center gap-2 mb-1">
                                         <span class="text-[10px] font-black px-2 py-0.5 rounded border-2 ${theme.border} ${theme.bg} ${theme.text} uppercase tracking-widest leading-tight">
                                             ${theme.label}
+                                        </span>
+                                        <span class="text-[10px] font-bold px-2 py-0.5 rounded border ${methodTheme} uppercase tracking-wide">
+                                            ${course.instructionalMethod || 'Standard'}
                                         </span>
                                         <h3 class="font-bold text-xl text-gray-900">${course.subject} ${course.course}</h3>
                                     </div>

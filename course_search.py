@@ -1,10 +1,13 @@
-
 import json
 import time
 import course_lookup as lookup
 from selenium import webdriver
 from pathlib import Path
 import sys
+
+all_subjects = ['ADMN', 'AE', 'AHVS', 'ANTH', 'ART', 'ASL', 'ASTR', 'ATWP', 'BCMB', 'BIOC', 'BIOL', 'BME', 'BUS', 'CD', 'CE', 'CHEM', 'CIVE', 'CNPY', 'COM', 'CS', 'CSC', 'CSPT', 'CW', 'CYC', 'DR', 'ECE', 'ECON', 'ED-D', 'ED-P', 'EDCI', 'ENGR', 'ENSH', 'ENT', 'EOS', 'EPHE', 'ER', 'ES', 'EUS', 'FA', 'FORB', 'FRAN', 'GDS', 'GEOG', 'GMST', 'GNDR', 'GREE', 'GRS', 'GS', 'HINF', 'HLTH', 'HSTR', 'HUMA', 'ICDG', 'IED', 'IGOV', 'IN', 'INDW', 'INGH', 'INTD', 'INTS', 'IS', 'ISP', 'ITAL', 'LAS', 'LATI', 'LAW', 'LING', 'MATH', 'MBA', 'MDIA', 'MECH', 'MEDI', 'MEDS', 'MGB', 'MICR', 'MUS', 'NRSC', 'NUED', 'NUHI', 'NUNP', 'NURA', 'NURS', 'PAAS', 'PHIL', 'PHSP', 'PHYS', 'POLI', 'PSYC', 'RCS', 'SCIE', 'SDH', 'SENG', 'SJS', 'SLST', 'SOCI', 'SOCW', 'SPAN', 'STAT', 'TCA', 'THEA', 'TS', 'WRIT']
+
+
 
 # for timing
 start_time = time.time()
@@ -27,10 +30,15 @@ driver = webdriver.Chrome(options=chrome_options)
 ROOT = Path(__file__).resolve().parent
 scraper_file = ROOT / "Scripts" / "course_search_scraper.js"
 
-subject = "CSC"
+subject = "CSC" # default
 
 if len(sys.argv) == 2:
     subject = sys.argv[1].upper()
+
+if subject not in all_subjects:
+    # Use sys.stderr.write so the web server catches the error message
+    sys.stderr.write(f"INVALID_SUBJECT: {subject}")
+    sys.exit(1) # Exit with error code 1
 
 try:
     with open(scraper_file, "r", encoding="utf-8") as f:
