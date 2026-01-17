@@ -693,11 +693,11 @@
         "course": "305",
         "crn": "20739",
         "schedule": "Monday,Wednesday,Thursday | 03:30  PM - 04:20  PM",
-        "seats": "3/172",
+        "seats": "1/172",
         "section": "A01",
         "subject": "CSC",
         "title": "Introduction to Computer Graphics",
-        "waitlist": "23/25"
+        "waitlist": "24/25"
     },
     {
         "course": "305",
@@ -713,7 +713,7 @@
         "course": "305",
         "crn": "20741",
         "schedule": "Tuesday | 09:30  AM - 10:20  AM",
-        "seats": "1/18",
+        "seats": "0/18",
         "section": "B01",
         "subject": "CSC",
         "title": "Introduction to Computer Graphics",
@@ -913,7 +913,7 @@
         "course": "349A",
         "crn": "20761",
         "schedule": "Monday,Thursday | 11:30  AM - 12:50  PM",
-        "seats": "0/80",
+        "seats": "2/80",
         "section": "A03",
         "subject": "CSC",
         "title": "Numerical Analysis",
