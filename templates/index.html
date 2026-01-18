@@ -123,7 +123,7 @@
             btn.innerText = "Processing...";
             
             status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-blue-50 text-blue-700 block animate-pulse";
-            status.innerHTML = `<div class="spinner"></div> <span>Scraping and analyzing...</span>`;
+            status.innerHTML = `<div class="spinner"></div> <span>Scraping and organizing...</span>`;
 
             const scrapePromises = Array.from(rows).map(row => {
                 const subjectInput = row.querySelector('.subject-input');
@@ -157,23 +157,22 @@
 
             try {
                 const results = await Promise.all(scrapePromises);
-                let totalCoursesFound = 0;
-                let allSectionsCollected = []; // This will hold EVERY section from EVERY course box
+                let totalSectionsFound = 0;
+                let organizedCourses = {}; // NEW: Indexed dictionary for easy indexing in Python
 
                 results.forEach(result => {
-                    if (result && result.status === "success") {
-                        totalCoursesFound += result.data.length;
+                    if (result && result.status === "success" && result.data.length > 0) {
+                        totalSectionsFound += result.data.length;
                         
-                        // Merge this course's sections into our master batch
-                        allSectionsCollected = allSectionsCollected.concat(result.data);
+                        // Create a key for the dictionary (e.g., "CSC 105")
+                        const courseKey = `${result.data[0].subject} ${result.data[0].course}`;
+                        organizedCourses[courseKey] = result.data;
 
                         result.data.forEach(course => {
                             const seatColor = getStatusColor(course.seats);
                             const theme = getSectionTheme(course.section);
                             const isOnline = course.instructionalMethod.toLowerCase().includes('online');
-                            const methodClass = isOnline 
-                                ? "bg-sky-100 text-sky-700 border-sky-200" 
-                                : "bg-amber-100 text-amber-700 border-amber-200";
+                            const methodClass = isOnline ? "bg-sky-100 text-sky-700 border-sky-200" : "bg-amber-100 text-amber-700 border-amber-200";
 
                             const card = document.createElement('div');
                             card.className = `border-l-[10px] ${theme.border} bg-white p-5 rounded-2xl shadow-md border border-gray-100 mb-4 transition-all hover:shadow-lg`;
@@ -181,13 +180,9 @@
                                 <div class="flex justify-between items-start gap-4">
                                     <div class="flex-1">
                                         <div class="flex flex-wrap items-center gap-2 mb-1">
-                                            <span class="text-[9px] font-black px-2 py-0.5 rounded border ${theme.border} ${theme.bg} ${theme.text} uppercase">
-                                                ${theme.label}
-                                            </span>
+                                            <span class="text-[9px] font-black px-2 py-0.5 rounded border ${theme.border} ${theme.bg} ${theme.text} uppercase">${theme.label}</span>
                                             <h3 class="font-bold text-xl text-gray-900">${course.subject} ${course.course}</h3>
-                                            <span class="text-[9px] font-bold px-1.5 py-0.5 rounded border ${methodClass} uppercase">
-                                                ${isOnline ? 'Online' : 'In-Person'}
-                                            </span>
+                                            <span class="text-[9px] font-bold px-1.5 py-0.5 rounded border ${methodClass} uppercase">${isOnline ? 'Online' : 'In-Person'}</span>
                                         </div>
                                         <p class="text-[11px] font-bold text-gray-400 uppercase tracking-tight">Section ${course.section} • CRN ${course.crn}</p>
                                         <h4 class="text-gray-700 font-bold text-md mt-2 leading-tight">${course.title}</h4>
@@ -212,20 +207,20 @@
                     }
                 });
 
-                // --- SEND THE ENTIRE BATCH TO THE AI AT ONCE ---
-                if (allSectionsCollected.length > 0) {
+                // --- SEND ORGANIZED DICTIONARY TO AI ---
+                if (totalSectionsFound > 0) {
                     fetch('/analyze_all', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ all_courses: allSectionsCollected })
+                        body: JSON.stringify({ all_courses: organizedCourses })
                     }).then(res => res.json())
-                      .then(data => console.log("AI Analysis Triggered:", data))
-                      .catch(err => console.error("AI Analysis Failed:", err));
+                      .then(data => console.log("Batch sent to server:", data))
+                      .catch(err => console.error("Batch send failed:", err));
                 }
 
                 const totalDuration = ((performance.now() - startTime) / 1000).toFixed(2);
                 status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-emerald-50 text-emerald-700";
-                status.innerHTML = `✅ Found ${totalCoursesFound} in ${totalDuration}`;
+                status.innerHTML = `✅ Organized ${Object.keys(organizedCourses).length} courses (${totalSectionsFound} sections) in ${totalDuration}s`;
 
             } catch (err) {
                 console.error("Batch scrape failed", err);
