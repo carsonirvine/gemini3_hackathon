@@ -34,8 +34,7 @@
         <h1 class="text-3xl font-extrabold text-gray-900 mb-1 text-center">UVic Course Lookup</h1>
         <p class="text-gray-500 text-center mb-8">Real-time seat and schedule scraper</p>
         
-        <div id="searchRows" class="space-y-3 mb-4">
-            </div>
+        <div id="searchRows" class="space-y-3 mb-4"></div>
 
         <div class="flex justify-between items-center mb-8 h-6">
             <button onclick="addRow()" id="addBtn" class="text-blue-600 font-bold text-sm hover:text-blue-800 transition-colors">
@@ -74,9 +73,7 @@
         function addRow() {
             const container = document.getElementById('searchRows');
             const rowCount = container.children.length;
-            
             if (rowCount >= MAX_BOXES) return;
-
             const row = document.createElement('div');
             row.className = "flex gap-2 course-row row-animate items-center";
             row.innerHTML = `
@@ -118,83 +115,124 @@
             const btn = document.getElementById('btn');
             const status = document.getElementById('status');
             const resultsDiv = document.getElementById('results');
+            const startTime = performance.now();
 
             resultsDiv.innerHTML = "";
+            status.classList.remove('hidden');
             btn.disabled = true;
             btn.innerText = "Processing...";
+            
             status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-blue-50 text-blue-700 block animate-pulse";
-            status.innerHTML = `<div class="spinner"></div> <span>Scraping all courses concurrently...</span>`;
+            status.innerHTML = `<div class="spinner"></div> <span>Scraping and analyzing...</span>`;
 
-            // 1. Gather all valid requests into an array of Promises
             const scrapePromises = Array.from(rows).map(row => {
                 const subjectInput = row.querySelector('.subject-input');
                 const numInput = row.querySelector('.number-input');
                 const subject = subjectInput.value.trim().toUpperCase();
                 const courseNum = numInput.value.trim();
 
-                if (!subject) return null; // Skip empty rows
-
+                if (!subject) return null;
                 if (!all_subjects.includes(subject)) {
                     subjectInput.classList.add('border-red-500');
                     return null;
-                } else {
-                    subjectInput.classList.remove('border-red-500');
                 }
+                subjectInput.classList.remove('border-red-500');
 
-                // Return the fetch promise
                 return fetch('/scrape', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ subject: subject, course_num: courseNum })
                 })
                 .then(res => res.json())
-                .catch(err => {
-                    console.error(err);
-                    return { status: "error" }; // Return a safe error object so Promise.all doesn't fail completely
-                });
-            }).filter(p => p !== null); // Remove nulls (skipped rows)
+                .catch(err => ({ status: "error", message: err.message }));
+            }).filter(p => p !== null);
 
-            // 2. Await all requests simultaneously
+            if (scrapePromises.length === 0) {
+                status.innerHTML = "⚠️ Please enter at least one valid course.";
+                status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-amber-50 text-amber-700";
+                btn.disabled = false;
+                btn.innerText = "Fetch All Courses";
+                return;
+            }
+
             try {
                 const results = await Promise.all(scrapePromises);
+                let totalCoursesFound = 0;
+                let allSectionsCollected = []; // This will hold EVERY section from EVERY course box
 
-                // 3. Process results as they come in (Order is preserved!)
                 results.forEach(result => {
                     if (result && result.status === "success") {
+                        totalCoursesFound += result.data.length;
+                        
+                        // Merge this course's sections into our master batch
+                        allSectionsCollected = allSectionsCollected.concat(result.data);
+
                         result.data.forEach(course => {
                             const seatColor = getStatusColor(course.seats);
                             const theme = getSectionTheme(course.section);
+                            const isOnline = course.instructionalMethod.toLowerCase().includes('online');
+                            const methodClass = isOnline 
+                                ? "bg-sky-100 text-sky-700 border-sky-200" 
+                                : "bg-amber-100 text-amber-700 border-amber-200";
+
                             const card = document.createElement('div');
-                            card.className = `border-l-8 ${theme.border} bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-4`;
+                            card.className = `border-l-[10px] ${theme.border} bg-white p-5 rounded-2xl shadow-md border border-gray-100 mb-4 transition-all hover:shadow-lg`;
                             card.innerHTML = `
-                                <div class="flex justify-between items-start">
-                                    <div>
+                                <div class="flex justify-between items-start gap-4">
+                                    <div class="flex-1">
                                         <div class="flex flex-wrap items-center gap-2 mb-1">
-                                            <span class="text-[10px] font-black px-2 py-0.5 rounded border-2 ${theme.border} ${theme.bg} ${theme.text}">${theme.label}</span>
+                                            <span class="text-[9px] font-black px-2 py-0.5 rounded border ${theme.border} ${theme.bg} ${theme.text} uppercase">
+                                                ${theme.label}
+                                            </span>
                                             <h3 class="font-bold text-xl text-gray-900">${course.subject} ${course.course}</h3>
+                                            <span class="text-[9px] font-bold px-1.5 py-0.5 rounded border ${methodClass} uppercase">
+                                                ${isOnline ? 'Online' : 'In-Person'}
+                                            </span>
                                         </div>
-                                        <p class="text-sm font-bold text-gray-400">Section ${course.section} • CRN ${course.crn}</p>
+                                        <p class="text-[11px] font-bold text-gray-400 uppercase tracking-tight">Section ${course.section} • CRN ${course.crn}</p>
+                                        <h4 class="text-gray-700 font-bold text-md mt-2 leading-tight">${course.title}</h4>
                                     </div>
-                                    <div class="flex flex-col items-end">
-                                        <span class="text-[9px] uppercase font-bold text-gray-400">Seats</span>
-                                        <span class="px-3 py-1 rounded-lg text-sm font-bold border ${seatColor}">${course.seats}</span>
+                                    <div class="flex flex-col gap-1.5 min-w-[85px]">
+                                        <div class="flex items-center justify-between px-2 py-1 rounded-md border ${seatColor} w-full h-7">
+                                            <span class="text-[8px] uppercase font-black opacity-70">Seats</span>
+                                            <span class="text-[12px] font-bold">${course.seats}</span>
+                                        </div>
+                                        <div class="flex items-center justify-between px-2 py-1 rounded-md border border-gray-200 bg-gray-50 text-gray-600 w-full h-7">
+                                            <span class="text-[8px] uppercase font-black opacity-70">Wait</span>
+                                            <span class="text-[12px] font-bold">${course.waitlist}</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <h4 class="text-gray-700 font-medium mt-3 leading-tight">${course.title}</h4>
-                                <div class="text-sm font-semibold text-gray-500 mt-4 bg-gray-50 p-3 rounded-xl border border-gray-100">📅 ${course.schedule}</div>
+                                <div class="text-[13px] font-bold text-gray-600 mt-4 bg-gray-50 p-3 rounded-xl border border-gray-100 flex items-center gap-2">
+                                    <span class="text-lg">📅</span> ${course.schedule}
+                                </div>
                             `;
                             resultsDiv.appendChild(card);
                         });
                     }
                 });
+
+                // --- SEND THE ENTIRE BATCH TO THE AI AT ONCE ---
+                if (allSectionsCollected.length > 0) {
+                    fetch('/analyze_all', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ all_courses: allSectionsCollected })
+                    }).then(res => res.json())
+                      .then(data => console.log("AI Analysis Triggered:", data))
+                      .catch(err => console.error("AI Analysis Failed:", err));
+                }
+
+                const totalDuration = ((performance.now() - startTime) / 1000).toFixed(2);
+                status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-emerald-50 text-emerald-700";
+                status.innerHTML = `✅ Found ${totalCoursesFound} in ${totalDuration}`;
+
             } catch (err) {
                 console.error("Batch scrape failed", err);
-                status.innerHTML = "Something went wrong.";
                 status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-red-50 text-red-700";
+                status.innerHTML = "Something went wrong during the search.";
             }
 
-            status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-emerald-50 text-emerald-700";
-            status.innerHTML = "Done! All results loaded.";
             btn.disabled = false;
             btn.innerText = "Fetch All Courses";
         }
