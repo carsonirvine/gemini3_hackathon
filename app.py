@@ -15,29 +15,31 @@ def index():
     return render_template('index.html')
 
 def send_to_ai(course_data):
-    """
-    Passes the scraped JSON data to ai_handler.py via stdin
-    """
+    print(f"DEBUG: Attempting to send {len(course_data)} courses to ai_handler.py...")
     try:
-        # We run the ai_handler.py script and pipe the JSON data into it
         process = subprocess.Popen(
-            ['python', 'ai_handler.py'],
+            [sys.executable, 'ai_handler.py'], # Using sys.executable is safer
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True
         )
-        # Send the data as a string
+        
+        # This sends the data and waits for the response
         stdout, stderr = process.communicate(input=json.dumps(course_data))
         
-        # Log AI handler responses/errors to the Flask terminal
+        # --- THIS LINE IS CRITICAL ---
+        # If you don't have this, the AI handler's prints stay hidden in the 'stdout' variable
         if stdout:
-            print(f"AI Handler Output: {stdout.strip()}")
+            print("\n--- AI HANDLER OUTPUT ---")
+            print(stdout)
+            print("--------------------------\n")
+            
         if stderr:
-            print(f"AI Handler Error: {stderr.strip()}")
+            print(f"AI HANDLER ERROR: {stderr}")
             
     except Exception as e:
-        print(f"Failed to send to AI: {e}")
+        print(f"FAILED TO EXECUTE AI_HANDLER: {e}")
 
 @app.route('/scrape', methods=['POST'])
 def run_scrape():
@@ -69,7 +71,7 @@ def run_scrape():
             
             # --- AI HANDLER INTEGRATION ---
             # Pass the results to the AI handler before responding to frontend
-            send_to_ai(results)
+            #send_to_ai(results)
             # ------------------------------
 
             return jsonify({
@@ -84,17 +86,34 @@ def run_scrape():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
+
 @app.route('/analyze_all', methods=['POST'])
 def analyze_all():
-    full_course_list = request.json.get('all_courses', [])
-    
-    if not full_course_list:
-        return jsonify({"status": "error", "message": "No courses to analyze"}), 400
+    # 1. Get the dictionary from the browser
+    course_catalog = request.json.get('all_courses', {})
 
-    # Call the AI handler once with the complete list
-    send_to_ai(full_course_list)
+    # 2. Start (spawn) the ai_handler.py process
+    process = subprocess.Popen(
+        [sys.executable, 'ai_handler.py'], # Use sys.executable to ensure it finds your Python
+        stdin=subprocess.PIPE,             # Open a "mouth" to receive data
+        stdout=subprocess.PIPE,            # Open an "ear" to hear back
+        stderr=subprocess.PIPE,            # Catch errors
+        text=True                          # Send as string text, not bytes
+    )
+
+    # 3. Send the dictionary and get the result
+    # This is where the communication actually happens
+    stdout, stderr = process.communicate(input=json.dumps(course_catalog))
+
+    # 4. Print it so you can verify it in your terminal
+    if stdout:
+        print("--- AI HANDLER OUTPUT ---")
+        print(stdout)
     
-    return jsonify({"status": "success", "message": "Full list sent to AI handler"})
+    if stderr:
+        print(f"--- AI HANDLER ERROR ---\n{stderr}")
+
+    return jsonify({"status": "success"})
 
 
 if __name__ == '__main__':
