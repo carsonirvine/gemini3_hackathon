@@ -9,7 +9,7 @@ function scrapeCurrentPage() {
 
     // Wait for rows to exist
     if (rows.length === 0) {
-        setTimeout(scrapeCurrentPage, 1000);
+        setTimeout(scrapeCurrentPage, 100);
         return;
     }
 

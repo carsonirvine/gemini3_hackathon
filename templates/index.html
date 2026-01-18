@@ -6,57 +6,103 @@
     <title>UVic Course Lookup</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Modern Spinner Animation */
         .spinner {
             border: 3px solid rgba(0, 0, 0, 0.1);
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             border-left-color: #3b82f6;
             animation: spin 1s linear infinite;
             display: inline-block;
             vertical-align: middle;
-            margin-right: 10px;
+            margin-right: 8px;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .row-animate {
+            animation: slideIn 0.2s ease-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col items-center py-12 px-4">
 
-    <div class="w-full max-w-2xl bg-white shadow-2xl rounded-3xl p-8">
-        <h1 class="text-3xl font-extrabold text-gray-900 mb-2 text-center">UVic Course Lookup</h1>
+    <div class="w-full max-w-lg bg-white shadow-2xl rounded-3xl p-6 sm:p-8">
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-1 text-center">UVic Course Lookup</h1>
         <p class="text-gray-500 text-center mb-8">Real-time seat and schedule scraper</p>
         
-        <div class="flex gap-3 mb-8">
-            <input type="text" id="subjectInput" placeholder="Subject (e.g. CSC)" 
-                class="flex-1 px-5 py-4 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-0 outline-none uppercase font-semibold transition-all">
-            <button onclick="startScrape()" id="btn"
-                class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-blue-200 transition-all active:scale-95">
-                Fetch
+        <div id="searchRows" class="space-y-3 mb-4"></div>
+
+        <div class="flex justify-between items-center mb-8 h-6">
+            <button onclick="addRow()" id="addBtn" class="text-blue-600 font-bold text-sm hover:text-blue-800 transition-colors">
+                + Add a box
+            </button>
+            <button onclick="resetApp()" class="text-gray-400 font-bold text-sm hover:text-red-500 transition-colors">
+                Reset
             </button>
         </div>
 
-        <div id="status" class="hidden mb-6 p-4 rounded-xl text-center font-semibold"></div>
+        <button onclick="startScrape()" id="btn"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-blue-200 transition-all active:scale-95 mb-8">
+            Fetch All Courses
+        </button>
 
+        <div id="status" class="hidden mb-6 p-4 rounded-xl text-center font-semibold"></div>
         <div id="results" class="space-y-4"></div>
     </div>
 
     <script>
-        // Colors for Seat/Waitlist Availability
+        const all_subjects = ['ADMN', 'AE', 'AHVS', 'ANTH', 'ART', 'ASL', 'ASTR', 'ATWP', 'BCMB', 'BIOC', 'BIOL', 'BME', 'BUS', 'CD', 'CE', 'CHEM', 'CIVE', 'CNPY', 'COM', 'CS', 'CSC', 'CSPT', 'CW', 'CYC', 'DR', 'ECE', 'ECON', 'ED-D', 'ED-P', 'EDCI', 'ENGR', 'ENSH', 'ENT', 'EOS', 'EPHE', 'ER', 'ES', 'EUS', 'FA', 'FORB', 'FRAN', 'GDS', 'GEOG', 'GMST', 'GNDR', 'GREE', 'GRS', 'GS', 'HINF', 'HLTH', 'HSTR', 'HUMA', 'ICDG', 'IED', 'IGOV', 'IN', 'INDW', 'INGH', 'INTD', 'INTS', 'IS', 'ISP', 'ITAL', 'LAS', 'LATI', 'LAW', 'LING', 'MATH', 'MBA', 'MDIA', 'MECH', 'MEDI', 'MEDS', 'MGB', 'MICR', 'MUS', 'NRSC', 'NUED', 'NUHI', 'NUNP', 'NURA', 'NURS', 'PAAS', 'PHIL', 'PHSP', 'PHYS', 'POLI', 'PSYC', 'RCS', 'SCIE', 'SDH', 'SENG', 'SJS', 'SLST', 'SOCI', 'SOCW', 'SPAN', 'STAT', 'TCA', 'THEA', 'TS', 'WRIT'];
+        const MAX_BOXES = 6;
+
+        window.onload = () => addRow();
+
+        function updateAddButton() {
+            const count = document.querySelectorAll('.course-row').length;
+            const addBtn = document.getElementById('addBtn');
+            if (count >= MAX_BOXES) {
+                addBtn.classList.add('invisible');
+            } else {
+                addBtn.classList.remove('invisible');
+            }
+        }
+
+        function addRow() {
+            const container = document.getElementById('searchRows');
+            const rowCount = container.children.length;
+            if (rowCount >= MAX_BOXES) return;
+            const row = document.createElement('div');
+            row.className = "flex gap-2 course-row row-animate items-center";
+            row.innerHTML = `
+                <input type="text" placeholder="eg. CSC" 
+                    class="subject-input flex-1 px-4 py-3 border-2 border-gray-100 rounded-xl focus:border-blue-500 outline-none uppercase font-semibold transition-all">
+                <input type="text" placeholder="eg. 105" 
+                    class="number-input flex-1 px-4 py-3 border-2 border-gray-100 rounded-xl focus:border-blue-500 outline-none font-semibold transition-all">
+                <button onclick="this.parentElement.remove(); updateAddButton();" class="text-gray-300 hover:text-red-500 font-bold px-2 text-xl">×</button>
+            `;
+            container.appendChild(row);
+            updateAddButton();
+        }
+
+        function resetApp() {
+            document.getElementById('searchRows').innerHTML = '';
+            document.getElementById('results').innerHTML = '';
+            document.getElementById('status').classList.add('hidden');
+            addRow();
+        }
+
         function getStatusColor(fraction) {
             if (!fraction || fraction === "N/A") return "text-gray-500 bg-gray-100 border-gray-200";
             const [rem, total] = fraction.split('/').map(Number);
             if (total === 0 || rem === 0) return "text-red-700 bg-red-50 border-red-200";
             const percentLeft = (rem / total) * 100;
             if (percentLeft >= 25) return "text-emerald-700 bg-emerald-50 border-emerald-200";
-            if (percentLeft > 0) return "text-amber-700 bg-amber-50 border-amber-200";
-            return "text-red-700 bg-red-50 border-red-200";
+            return percentLeft > 0 ? "text-amber-700 bg-amber-50 border-amber-200" : "text-red-700 bg-red-50 border-red-200";
         }
 
-        // Colors for Section Type (Lecture, Lab, Tutorial)
         function getSectionTheme(section) {
             const char = section.charAt(0).toUpperCase();
             if (char === 'B') return { label: "LAB", border: "border-purple-500", bg: "bg-purple-50", text: "text-purple-700" };
@@ -64,96 +110,126 @@
             return { label: "LECTURE", border: "border-green-500", bg: "bg-green-50", text: "text-green-700" };
         }
 
-        // Colors for Instructional Method
-        function getMethodTheme(method) {
-            const m = method || "";
-            if (m.includes('Face-to-face')) return "bg-blue-100 text-blue-700 border-blue-200";
-            if (m.includes('Fully Online')) return "bg-purple-100 text-purple-700 border-purple-200";
-            if (m.includes('Blended')) return "bg-indigo-100 text-indigo-700 border-indigo-200";
-            if (m.includes('Online with some')) return "bg-cyan-100 text-cyan-700 border-cyan-200";
-            return "bg-gray-100 text-gray-700 border-gray-200";
-        }
-
         async function startScrape() {
-            const subject = document.getElementById('subjectInput').value;
+            const rows = document.querySelectorAll('.course-row');
             const btn = document.getElementById('btn');
             const status = document.getElementById('status');
             const resultsDiv = document.getElementById('results');
+            const startTime = performance.now();
 
-            if (!subject) return alert("Please enter a subject");
-
-            btn.disabled = true;
-            btn.innerText = "Working...";
             resultsDiv.innerHTML = "";
+            status.classList.remove('hidden');
+            btn.disabled = true;
+            btn.innerText = "Processing...";
+            
             status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-blue-50 text-blue-700 block animate-pulse";
-            status.innerHTML = `<div class="spinner"></div> <span>Searching all pages for ${subject.toUpperCase()}...</span>`;
+            status.innerHTML = `<div class="spinner"></div> <span>Scraping and organizing...</span>`;
 
-            try {
-                const response = await fetch('/scrape', {
+            const scrapePromises = Array.from(rows).map(row => {
+                const subjectInput = row.querySelector('.subject-input');
+                const numInput = row.querySelector('.number-input');
+                const subject = subjectInput.value.trim().toUpperCase();
+                const courseNum = numInput.value.trim();
+
+                if (!subject) return null;
+                if (!all_subjects.includes(subject)) {
+                    subjectInput.classList.add('border-red-500');
+                    return null;
+                }
+                subjectInput.classList.remove('border-red-500');
+
+                return fetch('/scrape', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ subject: subject.toUpperCase() })
-                });
-                
-                const result = await response.json();
-                
-                if (result.status === "success") {
-                    status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-emerald-50 text-emerald-700";
-                    status.innerHTML = `
-                        <div>Successfully loaded ${result.data.length} sections</div>
-                        <div class="text-[10px] uppercase tracking-widest mt-1 opacity-70">Search completed in ${result.search_time}s</div>
-                    `;
-                    
-                    result.data.forEach(course => {
-                        const seatColor = getStatusColor(course.seats);
-                        const waitColor = getStatusColor(course.waitlist);
-                        const theme = getSectionTheme(course.section);
-                        const methodTheme = getMethodTheme(course.instructionalMethod);
+                    body: JSON.stringify({ subject: subject, course_num: courseNum })
+                })
+                .then(res => res.json())
+                .catch(err => ({ status: "error", message: err.message }));
+            }).filter(p => p !== null);
 
-                        const card = document.createElement('div');
-                        card.className = `border-l-8 ${theme.border} bg-white p-6 rounded-2xl shadow-sm border border-gray-100`;
-                        card.innerHTML = `
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <div class="flex flex-wrap items-center gap-2 mb-1">
-                                        <span class="text-[10px] font-black px-2 py-0.5 rounded border-2 ${theme.border} ${theme.bg} ${theme.text} uppercase tracking-widest leading-tight">
-                                            ${theme.label}
-                                        </span>
-                                        <span class="text-[10px] font-bold px-2 py-0.5 rounded border ${methodTheme} uppercase tracking-wide">
-                                            ${course.instructionalMethod || 'Standard'}
-                                        </span>
-                                        <h3 class="font-bold text-xl text-gray-900">${course.subject} ${course.course}</h3>
-                                    </div>
-                                    <p class="text-sm font-bold text-gray-400 uppercase tracking-tighter">Section ${course.section} • CRN ${course.crn}</p>
-                                </div>
-                                <div class="flex flex-col gap-2 items-end">
-                                    <div class="flex flex-col items-end">
-                                        <span class="text-[9px] uppercase font-bold text-gray-400 mr-1">Available Seats</span>
-                                        <span class="px-3 py-1 rounded-lg text-sm font-bold border ${seatColor}">${course.seats}</span>
-                                    </div>
-                                    <div class="flex flex-col items-end">
-                                        <span class="text-[9px] uppercase font-bold text-gray-400 mr-1">Waitlist</span>
-                                        <span class="px-3 py-1 rounded-lg text-sm font-bold border ${waitColor}">${course.waitlist}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <h4 class="text-gray-700 font-medium mt-3 leading-tight">${course.title}</h4>
-                            <div class="flex items-center text-sm font-semibold text-gray-500 mt-4 bg-gray-50 p-3 rounded-xl border border-gray-100">
-                                <span class="mr-2">📅</span> ${course.schedule}
-                            </div>
-                        `;
-                        resultsDiv.appendChild(card);
-                    });
-                } else {
-                    throw new Error(result.message);
-                }
-            } catch (err) {
-                status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-red-50 text-red-700";
-                status.innerText = "Error: " + err.message;
-            } finally {
+            if (scrapePromises.length === 0) {
+                status.innerHTML = "⚠️ Please enter at least one valid course.";
+                status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-amber-50 text-amber-700";
                 btn.disabled = false;
-                btn.innerText = "Fetch";
+                btn.innerText = "Fetch All Courses";
+                return;
             }
+
+            try {
+                const results = await Promise.all(scrapePromises);
+                let totalSectionsFound = 0;
+                let organizedCourses = {}; // NEW: Indexed dictionary for easy indexing in Python
+
+                results.forEach(result => {
+                    if (result && result.status === "success" && result.data.length > 0) {
+                        totalSectionsFound += result.data.length;
+                        
+                        // Create a key for the dictionary (e.g., "CSC 105")
+                        const courseKey = `${result.data[0].subject} ${result.data[0].course}`;
+                        organizedCourses[courseKey] = result.data;
+
+                        result.data.forEach(course => {
+                            const seatColor = getStatusColor(course.seats);
+                            const theme = getSectionTheme(course.section);
+                            const isOnline = course.instructionalMethod.toLowerCase().includes('online');
+                            const methodClass = isOnline ? "bg-sky-100 text-sky-700 border-sky-200" : "bg-amber-100 text-amber-700 border-amber-200";
+
+                            const card = document.createElement('div');
+                            card.className = `border-l-[10px] ${theme.border} bg-white p-5 rounded-2xl shadow-md border border-gray-100 mb-4 transition-all hover:shadow-lg`;
+                            card.innerHTML = `
+                                <div class="flex justify-between items-start gap-4">
+                                    <div class="flex-1">
+                                        <div class="flex flex-wrap items-center gap-2 mb-1">
+                                            <span class="text-[9px] font-black px-2 py-0.5 rounded border ${theme.border} ${theme.bg} ${theme.text} uppercase">${theme.label}</span>
+                                            <h3 class="font-bold text-xl text-gray-900">${course.subject} ${course.course}</h3>
+                                            <span class="text-[9px] font-bold px-1.5 py-0.5 rounded border ${methodClass} uppercase">${isOnline ? 'Online' : 'In-Person'}</span>
+                                        </div>
+                                        <p class="text-[11px] font-bold text-gray-400 uppercase tracking-tight">Section ${course.section} • CRN ${course.crn}</p>
+                                        <h4 class="text-gray-700 font-bold text-md mt-2 leading-tight">${course.title}</h4>
+                                    </div>
+                                    <div class="flex flex-col gap-1.5 min-w-[85px]">
+                                        <div class="flex items-center justify-between px-2 py-1 rounded-md border ${seatColor} w-full h-7">
+                                            <span class="text-[8px] uppercase font-black opacity-70">Seats</span>
+                                            <span class="text-[12px] font-bold">${course.seats}</span>
+                                        </div>
+                                        <div class="flex items-center justify-between px-2 py-1 rounded-md border border-gray-200 bg-gray-50 text-gray-600 w-full h-7">
+                                            <span class="text-[8px] uppercase font-black opacity-70">Wait</span>
+                                            <span class="text-[12px] font-bold">${course.waitlist}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-[13px] font-bold text-gray-600 mt-4 bg-gray-50 p-3 rounded-xl border border-gray-100 flex items-center gap-2">
+                                    <span class="text-lg">📅</span> ${course.schedule}
+                                </div>
+                            `;
+                            resultsDiv.appendChild(card);
+                        });
+                    }
+                });
+
+                // --- SEND ORGANIZED DICTIONARY TO AI ---
+                if (totalSectionsFound > 0) {
+                    fetch('/analyze_all', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ all_courses: organizedCourses })
+                    }).then(res => res.json())
+                      .then(data => console.log("Batch sent to server:", data))
+                      .catch(err => console.error("Batch send failed:", err));
+                }
+
+                const totalDuration = ((performance.now() - startTime) / 1000).toFixed(2);
+                status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-emerald-50 text-emerald-700";
+                status.innerHTML = `✅ Organized ${Object.keys(organizedCourses).length} courses (${totalSectionsFound} sections) in ${totalDuration}s`;
+
+            } catch (err) {
+                console.error("Batch scrape failed", err);
+                status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-red-50 text-red-700";
+                status.innerHTML = "Something went wrong during the search.";
+            }
+
+            btn.disabled = false;
+            btn.innerText = "Fetch All Courses";
         }
     </script>
 </body>
