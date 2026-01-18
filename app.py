@@ -4,6 +4,7 @@ import subprocess
 from pathlib import Path
 import sys
 import time
+import ai_handler
 
 app = Flask(__name__)
 ROOT = Path(__file__).resolve().parent
@@ -88,32 +89,31 @@ def run_scrape():
 
 
 @app.route('/analyze_all', methods=['POST'])
-def analyze_all():
-    # 1. Get the dictionary from the browser
-    course_catalog = request.json.get('all_courses', {})
-
-    # 2. Start (spawn) the ai_handler.py process
-    process = subprocess.Popen(
-        [sys.executable, 'ai_handler.py'], # Use sys.executable to ensure it finds your Python
-        stdin=subprocess.PIPE,             # Open a "mouth" to receive data
-        stdout=subprocess.PIPE,            # Open an "ear" to hear back
-        stderr=subprocess.PIPE,            # Catch errors
-        text=True                          # Send as string text, not bytes
-    )
-
-    # 3. Send the dictionary and get the result
-    # This is where the communication actually happens
-    stdout, stderr = process.communicate(input=json.dumps(course_catalog))
-
-    # 4. Print it so you can verify it in your terminal
-    if stdout:
-        print("--- AI HANDLER OUTPUT ---")
-        print(stdout)
+def analyze():
+    # Get the 'courses' object from the JS fetch request
+    data = request.json.get('courses')
     
-    if stderr:
-        print(f"--- AI HANDLER ERROR ---\n{stderr}")
+    if not data:
+        return jsonify({"status": "error", "message": "No course data received"}), 400
 
-    return jsonify({"status": "success"})
+    try:
+        # Get the list of result dictionaries from the AI handler
+        top_schedules = ai_handler.get_best_schedules(data) 
+        
+        if not top_schedules:
+            return jsonify({
+                "status": "error", 
+                "message": "No conflict-free schedule found."
+            })
+        
+        # Return the 'schedules' key exactly as the JS expects it
+        return jsonify({
+            "status": "success",
+            "schedules": top_schedules 
+        })
+    except Exception as e:
+        print(f"ALGO ERROR: {e}")
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 
 if __name__ == '__main__':

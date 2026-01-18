@@ -3,7 +3,341 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UVic Course Lookup</title>
+    <title>UVic Schedule Builder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .spinner {
+            border: 3px solid rgba(0, 0, 0, 0.1); width: 20px; height: 20px;
+            border-radius: 50%; border-left-color: #3b82f6;
+            animation: spin 1s linear infinite; display: inline-block;
+            vertical-align: middle; margin-right: 8px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .page-transition { transition: all 0.3s ease-in-out; }
+        .hidden-page { display: none; opacity: 0; transform: translateX(20px); }
+
+        .day-pill {
+            width: 28px; height: 28px; display: flex;
+            align-items: center; justify-content: center;
+            border-radius: 8px; font-size: 11px; font-weight: 900;
+            transition: all 0.2s ease;
+        }
+
+        .page-bubble {
+            width: 12px; height: 12px; border-radius: 50%;
+            cursor: pointer; transition: all 0.2s;
+            border: 2px solid #e5e7eb;
+        }
+        .page-bubble.active {
+            background-color: #3b82f6; border-color: #3b82f6; transform: scale(1.3);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center py-12 px-4">
+
+    <div class="w-full max-w-lg bg-white shadow-2xl rounded-3xl p-6 sm:p-8 mb-8">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-1 tracking-tight">UVic Builder</h1>
+            <div class="flex justify-center gap-2 mt-4">
+                <div id="dot1" class="h-2 w-8 rounded-full bg-blue-600 transition-all"></div>
+                <div id="dot2" class="h-2 w-8 rounded-full bg-gray-200 transition-all"></div>
+            </div>
+        </div>
+
+        <div id="page1" class="page-transition">
+            <h2 class="text-lg font-bold text-gray-700 mb-2">Mandatory Courses</h2>
+            <div id="mandatoryRows" class="space-y-3 mb-6"></div>
+            <button onclick="addRow('mandatory')" class="text-blue-600 font-bold text-sm hover:text-blue-800 mb-8 block transition-colors">+ Add Course</button>
+            <button onclick="goToPage(2)" class="w-full bg-gray-900 hover:bg-black text-white py-4 rounded-2xl font-bold transition-all active:scale-95">Next: Add Electives</button>
+        </div>
+
+        <div id="page2" class="page-transition hidden-page">
+            <h2 class="text-lg font-bold text-gray-700 mb-2">Elective Options</h2>
+            <div id="electiveRows" class="space-y-3 mb-6"></div>
+            <button onclick="addRow('elective')" class="text-emerald-600 font-bold text-sm hover:text-emerald-800 mb-8 block transition-colors">+ Add Course</button>
+            <div class="flex gap-3">
+                <button onclick="goToPage(1)" class="flex-1 bg-gray-100 text-gray-600 py-4 rounded-2xl font-bold hover:bg-gray-200 transition-all">Back</button>
+                <button onclick="startScrape()" id="btn" class="flex-[2] bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl font-bold shadow-lg shadow-blue-200 transition-all active:scale-95">Generate Schedules</button>
+            </div>
+        </div>
+
+        <div id="status" class="hidden mt-8 p-4 rounded-xl text-center font-semibold"></div>
+    </div>
+
+    <div id="schedule-results-list" class="space-y-8 w-full max-w-lg mb-6"></div>
+
+    <div id="pagination-controls" class="flex justify-center items-center gap-4 mb-12 hidden">
+        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Pages</span>
+        <div id="bubble-container" class="flex items-center gap-3"></div>
+    </div>
+
+<script>
+    let allSchedules = [];
+    let currentSchedulePage = 0;
+    const itemsPerPage = 5;
+    const maxVisibleBubbles = 7; // Only show 7 bubbles at a time
+    const colorPalette = ['bg-blue-600', 'bg-purple-600', 'bg-pink-600', 'bg-orange-500', 'bg-indigo-600', 'bg-cyan-600'];
+
+    window.onload = () => { addRow('mandatory'); };
+
+    function goToPage(page) {
+        const p1 = document.getElementById('page1');
+        const p2 = document.getElementById('page2');
+        const d1 = document.getElementById('dot1');
+        const d2 = document.getElementById('dot2');
+        if (page === 2) {
+            p1.style.display = 'none'; p2.style.display = 'block'; p2.classList.remove('hidden-page');
+            d1.className = "h-2 w-8 rounded-full bg-gray-200"; d2.className = "h-2 w-8 rounded-full bg-blue-600";
+        } else {
+            p2.style.display = 'none'; p1.style.display = 'block'; p1.classList.remove('hidden-page');
+            d2.className = "h-2 w-8 rounded-full bg-gray-200"; d1.className = "h-2 w-8 rounded-full bg-blue-600";
+        }
+    }
+
+    function addRow(type) {
+        const container = document.getElementById(type + 'Rows');
+        const row = document.createElement('div');
+        row.className = `flex gap-2 course-row ${type}-row items-center w-full`;
+        const isFirst = type === 'mandatory' && container.children.length === 0;
+        
+        row.innerHTML = `
+            <input type="text" placeholder="Subj" style="flex-basis: 30%;" class="subject-input px-3 py-3 border-2 border-gray-100 rounded-xl focus:border-blue-500 outline-none uppercase font-semibold text-sm min-w-0">
+            <input type="text" placeholder="Course #" class="number-input flex-1 px-3 py-3 border-2 border-gray-100 rounded-xl focus:border-blue-500 outline-none font-semibold text-sm min-w-0">
+            ${isFirst ? '<div class="w-8"></div>' : '<button onclick="this.parentElement.remove()" class="w-8 h-8 text-red-400 hover:bg-red-50 rounded-lg font-bold text-xl flex-shrink-0">×</button>'}
+        `;
+        container.appendChild(row);
+    }
+
+    function createDayVisualizer(scheduleStr, colorClass) {
+        const dayPart = scheduleStr.split('|')[0].toLowerCase();
+        const activeDays = dayPart.split(',').map(d => d.trim());
+        const daysMap = [
+            { label: 'M', match: 'monday' }, { label: 'T', match: 'tuesday' },
+            { label: 'W', match: 'wednesday' }, { label: 'R', match: 'thursday' },
+            { label: 'F', match: 'friday' }
+        ];
+
+        return daysMap.map(dayObj => {
+            const isActive = activeDays.includes(dayObj.match);
+            const bgColor = isActive ? `${colorClass} text-white shadow-sm` : 'bg-gray-100 text-gray-300';
+            return `<div class="day-pill ${bgColor}">${dayObj.label}</div>`;
+        }).join('');
+    }
+
+    function getSeatsStatus(seatsStr) {
+        if (!seatsStr || seatsStr === "N/A" || !seatsStr.includes('/')) {
+            return { label: seatsStr || "TBA", classes: "text-gray-500 bg-gray-100 border-gray-200" };
+        }
+        let [available, total] = seatsStr.split('/').map(Number);
+        if (available <= 0) return { label: "FULL", classes: "text-red-700 bg-red-50 border-red-200" };
+        let percentLeft = (available / total) * 100;
+        if (percentLeft >= 25) return { label: `${available}/${total} Left`, classes: "text-emerald-700 bg-emerald-50 border-emerald-200" };
+        return { label: `${available}/${total} Left`, classes: "text-amber-700 bg-amber-50 border-amber-200" };
+    }
+
+    function getWaitlistStatus(waitlistStr) {
+        if (!waitlistStr || waitlistStr === "N/A" || !waitlistStr.includes('/')) {
+            return { label: waitlistStr || "TBA", classes: "text-gray-500 bg-gray-100 border-gray-200" };
+        }
+        let [available, total] = waitlistStr.split('/').map(Number);
+        if (available <= 0) return { label: "FULL", classes: "text-red-700 bg-red-50 border-red-200" };
+        let percentLeft = (available / total) * 100;
+        if (percentLeft >= 25) return { label: `${available}/${total} Left`, classes: "text-emerald-700 bg-emerald-50 border-emerald-200" };
+        return { label: `${available}/${total} Left`, classes: "text-amber-700 bg-amber-50 border-amber-200" };
+    }
+
+    function renderSchedules() {
+        const resultsList = document.getElementById('schedule-results-list');
+        resultsList.innerHTML = "";
+        
+        const start = currentSchedulePage * itemsPerPage;
+        const end = start + itemsPerPage;
+        const pageItems = allSchedules.slice(start, end);
+
+        pageItems.forEach((schedule, i) => {
+            const globalIndex = start + i + 1;
+            const card = document.createElement('div');
+            card.className = "bg-white border border-gray-200 shadow-xl rounded-[2rem] overflow-hidden transition-all hover:shadow-2xl mb-8";
+            
+            let html = `
+                <div class="bg-gray-900 px-8 py-5 flex justify-between items-center">
+                    <div>
+                        <h3 class="text-white font-black text-lg italic tracking-tighter">OPTION ${globalIndex.toString().padStart(2, '0')}</h3>
+                        <p class="text-[9px] text-gray-400 font-bold uppercase tracking-widest">Optimized UVic Route</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span class="text-[10px] text-emerald-400 font-black uppercase">Valid</span>
+                    </div>
+                </div>
+                <div class="divide-y divide-gray-50">`;
+
+            schedule.forEach((course, index) => {
+                const colorClass = colorPalette[index % colorPalette.length];
+                const timePart = course.schedule.includes('|') ? course.schedule.split('|')[1].trim() : "TBA";
+                const seatStatus = getSeatsStatus(course.seats);
+                const waitlistStatus = getWaitlistStatus(course.waitlist)
+                
+                html += `
+                    <div class="p-6 hover:bg-gray-50/50 transition-colors">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="flex gap-4">
+                                <div class="w-1 self-stretch ${colorClass} rounded-full"></div>
+                                <div>
+                                    <h4 class="font-black text-gray-900 text-xl tracking-tight">${course.subject} ${course.course}</h4>
+                                    <p class="text-xs text-gray-500 font-bold mb-1">${course.title || ''}</p>
+                                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Sec ${course.section} • CRN ${course.crn}</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end gap-2">
+                                <div class="bg-white border border-gray-100 px-3 py-1.5 rounded-xl shadow-sm">
+                                    <span class="text-[11px] font-black text-gray-700 tabular-nums">${timePart}</span>
+                                </div>
+                                <div class="px-2 py-0.5 rounded-lg border text-[10px] font-black uppercase tracking-tighter ${seatStatus.classes}">
+                                    ${seatStatus.label}
+                                </div>
+                                <div class="px-2 py-0.5 rounded-lg border text-[10px] font-black uppercase tracking-tighter ${waitlistStatus.classes}">
+                                    ${waitlistStatus.label}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-2 ml-5">
+                            ${createDayVisualizer(course.schedule, colorClass)}
+                        </div>
+                    </div>`;
+            });
+            html += `</div>`;
+            card.innerHTML = html;
+            resultsList.appendChild(card);
+        });
+        renderPagination(); 
+    }
+
+    function renderPagination() {
+        const container = document.getElementById('bubble-container');
+        const controls = document.getElementById('pagination-controls');
+        container.innerHTML = "";
+        
+        const totalPages = Math.ceil(allSchedules.length / itemsPerPage);
+        if (totalPages <= 1) { controls.classList.add('hidden'); return; }
+        
+        controls.classList.remove('hidden');
+
+        // Logic for sliding window (shows 7 bubbles max)
+        let startPage = Math.max(0, currentSchedulePage - Math.floor(maxVisibleBubbles / 2));
+        let endPage = Math.min(totalPages - 1, startPage + maxVisibleBubbles - 1);
+
+        if (endPage - startPage < maxVisibleBubbles - 1) {
+            startPage = Math.max(0, endPage - maxVisibleBubbles + 1);
+        }
+
+        // Quick Jump to First
+        if (startPage > 0) {
+            container.appendChild(createNavArrow('«', 0));
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+            const bubble = document.createElement('div');
+            bubble.className = `page-bubble ${i === currentSchedulePage ? 'active' : ''}`;
+            bubble.onclick = () => {
+                currentSchedulePage = i;
+                renderSchedules();
+                window.scrollTo({ top: document.getElementById('schedule-results-list').offsetTop - 50, behavior: 'smooth' });
+            };
+            container.appendChild(bubble);
+        }
+
+        // Quick Jump to Last
+        if (endPage < totalPages - 1) {
+            container.appendChild(createNavArrow('»', totalPages - 1));
+        }
+    }
+
+    function createNavArrow(label, target) {
+        const arrow = document.createElement('div');
+        arrow.innerText = label;
+        arrow.className = "text-lg font-bold text-gray-400 cursor-pointer hover:text-blue-600 px-2 transition-colors";
+        arrow.onclick = () => {
+            currentSchedulePage = target;
+            renderSchedules();
+            window.scrollTo({ top: document.getElementById('schedule-results-list').offsetTop - 50, behavior: 'smooth' });
+        };
+        return arrow;
+    }
+
+    async function startScrape() {
+        const btn = document.getElementById('btn');
+        const status = document.getElementById('status');
+        const resultsList = document.getElementById('schedule-results-list');
+        
+        resultsList.innerHTML = ""; 
+        status.classList.remove('hidden');
+        btn.disabled = true;
+        btn.innerText = "Processing...";
+        status.className = "mt-8 p-4 rounded-xl text-center font-semibold bg-blue-50 text-blue-700 block animate-pulse";
+        status.innerHTML = `<div class="spinner"></div> <span>Generating best combinations...</span>`;
+
+        const rows = document.querySelectorAll('.course-row');
+        const scrapePromises = Array.from(rows).map(row => {
+            const s = row.querySelector('.subject-input').value.trim().toUpperCase();
+            const n = row.querySelector('.number-input').value.trim();
+            if (!s || !n) return null;
+            return fetch('/scrape', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({subject: s, course_num: n})
+            }).then(res => res.json());
+        }).filter(p => p !== null);
+
+        try {
+            const results = await Promise.all(scrapePromises);
+            let organizedForBackend = { mandatory: {}, electives: {} };
+
+            results.forEach((res, index) => {
+                if(res.status === "success" && res.data.length > 0) {
+                    const courseKey = `${res.data[0].subject} ${res.data[0].course}`;
+                    const isMandatory = Array.from(rows)[index].classList.contains('mandatory-row');
+                    if (isMandatory) organizedForBackend.mandatory[courseKey] = res.data;
+                    else organizedForBackend.electives[courseKey] = res.data;
+                }
+            });
+
+            const algoRes = await fetch('/analyze_all', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ courses: organizedForBackend })
+            });
+            const data = await algoRes.json();
+            
+            if (data.status === "success" && data.schedules.length > 0) {
+                allSchedules = data.schedules;
+                currentSchedulePage = 0;
+                renderSchedules();
+                status.className = "mt-8 p-4 rounded-xl text-center font-semibold bg-emerald-50 text-emerald-700";
+                status.innerHTML = `✅ Found ${data.schedules.length} conflict-free schedules.`;
+            } else {
+                document.getElementById('pagination-controls').classList.add('hidden');
+                status.innerHTML = "❌ No conflict-free options found.";
+                status.className = "mt-8 p-4 rounded-xl text-center font-semibold bg-red-50 text-red-700";
+            }
+        } catch (e) {
+            status.className = "mt-8 p-4 rounded-xl text-center font-semibold bg-red-50 text-red-700";
+            status.innerHTML = "Error connecting to generator.";
+        }
+        btn.disabled = false;
+        btn.innerText = "Generate Schedules";
+    }
+</script>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UVic Course Scraper</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .spinner {
@@ -19,218 +353,214 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
-        .row-animate {
-            animation: slideIn 0.2s ease-out;
+        .page-transition {
+            transition: all 0.3s ease-in-out;
         }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .hidden-page {
+            display: none;
+            opacity: 0;
+            transform: translateX(20px);
         }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col items-center py-12 px-4">
+    <body class="bg-gray-100 min-h-screen flex flex-col items-center py-12 px-4">
 
-    <div class="w-full max-w-lg bg-white shadow-2xl rounded-3xl p-6 sm:p-8">
-        <h1 class="text-3xl font-extrabold text-gray-900 mb-1 text-center">UVic Course Lookup</h1>
-        <p class="text-gray-500 text-center mb-8">Real-time seat and schedule scraper</p>
-        
-        <div id="searchRows" class="space-y-3 mb-4"></div>
+        <div class="w-full max-w-lg bg-white shadow-2xl rounded-3xl p-6 sm:p-8">
+            
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-extrabold text-gray-900 mb-1">UVic Lookup</h1>
+                <div class="flex justify-center gap-2 mt-4">
+                    <div id="dot1" class="h-2 w-8 rounded-full bg-blue-600 transition-all"></div>
+                    <div id="dot2" class="h-2 w-8 rounded-full bg-gray-200 transition-all"></div>
+                </div>
+            </div>
 
-        <div class="flex justify-between items-center mb-8 h-6">
-            <button onclick="addRow()" id="addBtn" class="text-blue-600 font-bold text-sm hover:text-blue-800 transition-colors">
-                + Add a box
-            </button>
-            <button onclick="resetApp()" class="text-gray-400 font-bold text-sm hover:text-red-500 transition-colors">
-                Reset
-            </button>
+            <div id="page1" class="page-transition">
+                <h2 class="text-lg font-bold text-gray-700 mb-2">Mandatory Courses</h2>
+                <p class="text-xs text-gray-400 mb-4 uppercase font-bold tracking-tight">Step 1: Core Requirements</p>
+                
+                <div id="mandatoryRows" class="space-y-3 mb-6"></div>
+
+                <button onclick="addRow('mandatory')" class="text-blue-600 font-bold text-sm hover:text-blue-800 mb-8 block transition-colors">
+                    + Add Course
+                </button>
+
+                <button onclick="goToPage(2)" 
+                    class="w-full bg-gray-900 hover:bg-black text-white py-4 rounded-2xl font-bold transition-all active:scale-95">
+                    Next: Add Electives
+                </button>
+            </div>
+
+            <div id="page2" class="page-transition hidden-page">
+                <h2 class="text-lg font-bold text-gray-700 mb-2">Elective Options</h2>
+                <p class="text-xs text-gray-400 mb-4 uppercase font-bold tracking-tight">Step 2: Potential Courses</p>
+                
+                <div id="electiveRows" class="space-y-3 mb-6"></div>
+
+                <button onclick="addRow('elective')" class="text-emerald-600 font-bold text-sm hover:text-emerald-800 mb-8 block transition-colors">
+                    + Add Course
+                </button>
+
+                <div class="flex gap-3">
+                    <button onclick="goToPage(1)" class="flex-1 bg-gray-100 text-gray-600 py-4 rounded-2xl font-bold hover:bg-gray-200 transition-all">
+                        Back
+                    </button>
+                    <button onclick="startScrape()" id="btn" class="flex-[2] bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl font-bold shadow-lg shadow-blue-200 transition-all active:scale-95">
+                        Fetch All Data
+                    </button>
+                </div>
+            </div>
+
+            <div id="status" class="hidden mt-8 p-4 rounded-xl text-center font-semibold"></div>
+            <div id="results" class="space-y-4 mt-6"></div>
         </div>
 
-        <button onclick="startScrape()" id="btn"
-            class="w-full bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-blue-200 transition-all active:scale-95 mb-8">
-            Fetch All Courses
-        </button>
+        <script>
+            const all_subjects = ['ADMN', 'AE', 'AHVS', 'ANTH', 'ART', 'ASL', 'ASTR', 'ATWP', 'BCMB', 'BIOC', 'BIOL', 'BME', 'BUS', 'CD', 'CE', 'CHEM', 'CIVE', 'CNPY', 'COM', 'CS', 'CSC', 'CSPT', 'CW', 'CYC', 'DR', 'ECE', 'ECON', 'ED-D', 'ED-P', 'EDCI', 'ENGR', 'ENSH', 'ENT', 'EOS', 'EPHE', 'ER', 'ES', 'EUS', 'FA', 'FORB', 'FRAN', 'GDS', 'GEOG', 'GMST', 'GNDR', 'GREE', 'GRS', 'GS', 'HINF', 'HLTH', 'HSTR', 'HUMA', 'ICDG', 'IED', 'IGOV', 'IN', 'INDW', 'INGH', 'INTD', 'INTS', 'IS', 'ISP', 'ITAL', 'LAS', 'LATI', 'LAW', 'LING', 'MATH', 'MBA', 'MDIA', 'MECH', 'MEDI', 'MEDS', 'MGB', 'MICR', 'MUS', 'NRSC', 'NUED', 'NUHI', 'NUNP', 'NURA', 'NURS', 'PAAS', 'PHIL', 'PHSP', 'PHYS', 'POLI', 'PSYC', 'RCS', 'SCIE', 'SDH', 'SENG', 'SJS', 'SLST', 'SOCI', 'SOCW', 'SPAN', 'STAT', 'TCA', 'THEA', 'TS', 'WRIT'];
 
-        <div id="status" class="hidden mb-6 p-4 rounded-xl text-center font-semibold"></div>
-        <div id="results" class="space-y-4"></div>
-    </div>
+            window.onload = () => {
+                addRow('mandatory'); 
+            };
 
-    <script>
-        const all_subjects = ['ADMN', 'AE', 'AHVS', 'ANTH', 'ART', 'ASL', 'ASTR', 'ATWP', 'BCMB', 'BIOC', 'BIOL', 'BME', 'BUS', 'CD', 'CE', 'CHEM', 'CIVE', 'CNPY', 'COM', 'CS', 'CSC', 'CSPT', 'CW', 'CYC', 'DR', 'ECE', 'ECON', 'ED-D', 'ED-P', 'EDCI', 'ENGR', 'ENSH', 'ENT', 'EOS', 'EPHE', 'ER', 'ES', 'EUS', 'FA', 'FORB', 'FRAN', 'GDS', 'GEOG', 'GMST', 'GNDR', 'GREE', 'GRS', 'GS', 'HINF', 'HLTH', 'HSTR', 'HUMA', 'ICDG', 'IED', 'IGOV', 'IN', 'INDW', 'INGH', 'INTD', 'INTS', 'IS', 'ISP', 'ITAL', 'LAS', 'LATI', 'LAW', 'LING', 'MATH', 'MBA', 'MDIA', 'MECH', 'MEDI', 'MEDS', 'MGB', 'MICR', 'MUS', 'NRSC', 'NUED', 'NUHI', 'NUNP', 'NURA', 'NURS', 'PAAS', 'PHIL', 'PHSP', 'PHYS', 'POLI', 'PSYC', 'RCS', 'SCIE', 'SDH', 'SENG', 'SJS', 'SLST', 'SOCI', 'SOCW', 'SPAN', 'STAT', 'TCA', 'THEA', 'TS', 'WRIT'];
-        const MAX_BOXES = 6;
+            function goToPage(page) {
+                const p1 = document.getElementById('page1');
+                const p2 = document.getElementById('page2');
+                const d1 = document.getElementById('dot1');
+                const d2 = document.getElementById('dot2');
 
-        window.onload = () => addRow();
-
-        function updateAddButton() {
-            const count = document.querySelectorAll('.course-row').length;
-            const addBtn = document.getElementById('addBtn');
-            if (count >= MAX_BOXES) {
-                addBtn.classList.add('invisible');
-            } else {
-                addBtn.classList.remove('invisible');
-            }
-        }
-
-        function addRow() {
-            const container = document.getElementById('searchRows');
-            const rowCount = container.children.length;
-            if (rowCount >= MAX_BOXES) return;
-            const row = document.createElement('div');
-            row.className = "flex gap-2 course-row row-animate items-center";
-            row.innerHTML = `
-                <input type="text" placeholder="eg. CSC" 
-                    class="subject-input flex-1 px-4 py-3 border-2 border-gray-100 rounded-xl focus:border-blue-500 outline-none uppercase font-semibold transition-all">
-                <input type="text" placeholder="eg. 105" 
-                    class="number-input flex-1 px-4 py-3 border-2 border-gray-100 rounded-xl focus:border-blue-500 outline-none font-semibold transition-all">
-                <button onclick="this.parentElement.remove(); updateAddButton();" class="text-gray-300 hover:text-red-500 font-bold px-2 text-xl">×</button>
-            `;
-            container.appendChild(row);
-            updateAddButton();
-        }
-
-        function resetApp() {
-            document.getElementById('searchRows').innerHTML = '';
-            document.getElementById('results').innerHTML = '';
-            document.getElementById('status').classList.add('hidden');
-            addRow();
-        }
-
-        function getStatusColor(fraction) {
-            if (!fraction || fraction === "N/A") return "text-gray-500 bg-gray-100 border-gray-200";
-            const [rem, total] = fraction.split('/').map(Number);
-            if (total === 0 || rem === 0) return "text-red-700 bg-red-50 border-red-200";
-            const percentLeft = (rem / total) * 100;
-            if (percentLeft >= 25) return "text-emerald-700 bg-emerald-50 border-emerald-200";
-            return percentLeft > 0 ? "text-amber-700 bg-amber-50 border-amber-200" : "text-red-700 bg-red-50 border-red-200";
-        }
-
-        function getSectionTheme(section) {
-            const char = section.charAt(0).toUpperCase();
-            if (char === 'B') return { label: "LAB", border: "border-purple-500", bg: "bg-purple-50", text: "text-purple-700" };
-            if (char === 'T') return { label: "TUTORIAL", border: "border-orange-500", bg: "bg-orange-50", text: "text-orange-700" };
-            return { label: "LECTURE", border: "border-green-500", bg: "bg-green-50", text: "text-green-700" };
-        }
-
-        async function startScrape() {
-            const rows = document.querySelectorAll('.course-row');
-            const btn = document.getElementById('btn');
-            const status = document.getElementById('status');
-            const resultsDiv = document.getElementById('results');
-            const startTime = performance.now();
-
-            resultsDiv.innerHTML = "";
-            status.classList.remove('hidden');
-            btn.disabled = true;
-            btn.innerText = "Processing...";
-            
-            status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-blue-50 text-blue-700 block animate-pulse";
-            status.innerHTML = `<div class="spinner"></div> <span>Scraping and organizing...</span>`;
-
-            const scrapePromises = Array.from(rows).map(row => {
-                const subjectInput = row.querySelector('.subject-input');
-                const numInput = row.querySelector('.number-input');
-                const subject = subjectInput.value.trim().toUpperCase();
-                const courseNum = numInput.value.trim();
-
-                if (!subject) return null;
-                if (!all_subjects.includes(subject)) {
-                    subjectInput.classList.add('border-red-500');
-                    return null;
+                if (page === 2) {
+                    p1.style.display = 'none';
+                    p2.style.display = 'block';
+                    p2.classList.remove('hidden-page');
+                    d1.className = "h-2 w-8 rounded-full bg-gray-200";
+                    d2.className = "h-2 w-8 rounded-full bg-blue-600";
+                } else {
+                    p2.style.display = 'none';
+                    p1.style.display = 'block';
+                    p1.classList.remove('hidden-page');
+                    d2.className = "h-2 w-8 rounded-full bg-gray-200";
+                    d1.className = "h-2 w-8 rounded-full bg-blue-600";
                 }
-                subjectInput.classList.remove('border-red-500');
-
-                return fetch('/scrape', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ subject: subject, course_num: courseNum })
-                })
-                .then(res => res.json())
-                .catch(err => ({ status: "error", message: err.message }));
-            }).filter(p => p !== null);
-
-            if (scrapePromises.length === 0) {
-                status.innerHTML = "⚠️ Please enter at least one valid course.";
-                status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-amber-50 text-amber-700";
-                btn.disabled = false;
-                btn.innerText = "Fetch All Courses";
-                return;
             }
 
-            try {
-                const results = await Promise.all(scrapePromises);
-                let totalSectionsFound = 0;
-                let organizedCourses = {}; // NEW: Indexed dictionary for easy indexing in Python
+            function addRow(type) {
+                const container = document.getElementById(type + 'Rows');
+                const row = document.createElement('div');
+                row.className = `flex gap-2 course-row ${type}-row items-center w-full`;
+                
+                const isFirstMandatory = type === 'mandatory' && container.children.length === 0;
 
-                results.forEach(result => {
-                    if (result && result.status === "success" && result.data.length > 0) {
-                        totalSectionsFound += result.data.length;
-                        
-                        // Create a key for the dictionary (e.g., "CSC 105")
-                        const courseKey = `${result.data[0].subject} ${result.data[0].course}`;
-                        organizedCourses[courseKey] = result.data;
+                row.innerHTML = `
+                    <input type="text" placeholder="Subj" class="subject-input w-20 px-3 py-3 border-2 border-gray-100 rounded-xl focus:border-blue-500 outline-none uppercase font-semibold text-sm">
+                    <input type="text" placeholder="Course #" class="number-input flex-1 px-3 py-3 border-2 border-gray-100 rounded-xl focus:border-blue-500 outline-none font-semibold text-sm">
+                    ${isFirstMandatory ? '<div class="w-8"></div>' : '<button onclick="this.parentElement.remove()" class="w-8 h-8 text-red-400 hover:bg-red-50 rounded-lg font-bold text-xl transition-all">×</button>'}
+                `;
+                container.appendChild(row);
+            }
 
-                        result.data.forEach(course => {
-                            const seatColor = getStatusColor(course.seats);
-                            const theme = getSectionTheme(course.section);
-                            const isOnline = course.instructionalMethod.toLowerCase().includes('online');
-                            const methodClass = isOnline ? "bg-sky-100 text-sky-700 border-sky-200" : "bg-amber-100 text-amber-700 border-amber-200";
+            function getStatusColor(fraction) {
+                if (!fraction || fraction === "N/A") return "text-gray-500 bg-gray-100 border-gray-200";
+                const [rem, total] = fraction.split('/').map(Number);
+                if (total === 0 || rem === 0) return "text-red-700 bg-red-50 border-red-200";
+                const percentLeft = (rem / total) * 100;
+                return percentLeft >= 25 ? "text-emerald-700 bg-emerald-50 border-emerald-200" : (percentLeft > 0 ? "text-amber-700 bg-amber-50 border-amber-200" : "text-red-700 bg-red-50 border-red-200");
+            }
 
-                            const card = document.createElement('div');
-                            card.className = `border-l-[10px] ${theme.border} bg-white p-5 rounded-2xl shadow-md border border-gray-100 mb-4 transition-all hover:shadow-lg`;
-                            card.innerHTML = `
-                                <div class="flex justify-between items-start gap-4">
-                                    <div class="flex-1">
-                                        <div class="flex flex-wrap items-center gap-2 mb-1">
-                                            <span class="text-[9px] font-black px-2 py-0.5 rounded border ${theme.border} ${theme.bg} ${theme.text} uppercase">${theme.label}</span>
-                                            <h3 class="font-bold text-xl text-gray-900">${course.subject} ${course.course}</h3>
-                                            <span class="text-[9px] font-bold px-1.5 py-0.5 rounded border ${methodClass} uppercase">${isOnline ? 'Online' : 'In-Person'}</span>
-                                        </div>
-                                        <p class="text-[11px] font-bold text-gray-400 uppercase tracking-tight">Section ${course.section} • CRN ${course.crn}</p>
-                                        <h4 class="text-gray-700 font-bold text-md mt-2 leading-tight">${course.title}</h4>
-                                    </div>
-                                    <div class="flex flex-col gap-1.5 min-w-[85px]">
-                                        <div class="flex items-center justify-between px-2 py-1 rounded-md border ${seatColor} w-full h-7">
-                                            <span class="text-[8px] uppercase font-black opacity-70">Seats</span>
-                                            <span class="text-[12px] font-bold">${course.seats}</span>
-                                        </div>
-                                        <div class="flex items-center justify-between px-2 py-1 rounded-md border border-gray-200 bg-gray-50 text-gray-600 w-full h-7">
-                                            <span class="text-[8px] uppercase font-black opacity-70">Wait</span>
-                                            <span class="text-[12px] font-bold">${course.waitlist}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="text-[13px] font-bold text-gray-600 mt-4 bg-gray-50 p-3 rounded-xl border border-gray-100 flex items-center gap-2">
-                                    <span class="text-lg">📅</span> ${course.schedule}
-                                </div>
-                            `;
-                            resultsDiv.appendChild(card);
-                        });
-                    }
-                });
+            function getSectionTheme(section) {
+                const char = section.charAt(0).toUpperCase();
+                if (char === 'B') return { label: "LAB", border: "border-purple-500", bg: "bg-purple-50", text: "text-purple-700" };
+                if (char === 'T') return { label: "TUTORIAL", border: "border-orange-500", bg: "bg-orange-50", text: "text-orange-700" };
+                return { label: "LECTURE", border: "border-green-500", bg: "bg-green-50", text: "text-green-700" };
+            }
 
-                // --- SEND ORGANIZED DICTIONARY TO AI ---
-                if (totalSectionsFound > 0) {
-                    fetch('/analyze_all', {
+            async function startScrape() {
+                const btn = document.getElementById('btn');
+                const status = document.getElementById('status');
+                const resultsDiv = document.getElementById('results');
+                
+                resultsDiv.innerHTML = "";
+                status.classList.remove('hidden');
+                btn.disabled = true;
+                btn.innerText = "Searching...";
+                status.className = "mt-8 p-4 rounded-xl text-center font-semibold bg-blue-50 text-blue-700 block animate-pulse";
+                status.innerHTML = `<div class="spinner"></div> <span>Scraping all sections...</span>`;
+
+                // Select all rows from both pages
+                const rows = document.querySelectorAll('.course-row');
+                const scrapePromises = Array.from(rows).map(row => {
+                    const s = row.querySelector('.subject-input').value.trim().toUpperCase();
+                    const n = row.querySelector('.number-input').value.trim();
+                    if (!s || !n) return null;
+                    return fetch('/scrape', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ all_courses: organizedCourses })
-                    }).then(res => res.json())
-                      .then(data => console.log("Batch sent to server:", data))
-                      .catch(err => console.error("Batch send failed:", err));
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({subject: s, course_num: n})
+                    }).then(res => res.json());
+                }).filter(p => p !== null);
+
+                try {
+                    const results = await Promise.all(scrapePromises);
+                    let totalFound = 0;
+                    let organizedForAI = { mandatory: {}, electives: {} };
+
+                    results.forEach((res, index) => {
+                        if(res.status === "success" && res.data.length > 0) {
+                            totalFound += res.data.length;
+                            
+                            // Sort into buckets for the background AI process
+                            const courseKey = `${res.data[0].subject} ${res.data[0].course}`;
+                            const isMandatory = Array.from(rows)[index].classList.contains('mandatory-row');
+                            if (isMandatory) organizedForAI.mandatory[courseKey] = res.data;
+                            else organizedForAI.electives[courseKey] = res.data;
+
+                            // Display the cards exactly like before
+                            res.data.forEach(course => {
+                                const seatColor = getStatusColor(course.seats);
+                                const theme = getSectionTheme(course.section);
+                                const card = document.createElement('div');
+                                card.className = `border-l-[10px] ${theme.border} bg-white p-5 rounded-2xl shadow-md border border-gray-100 mb-4 text-left transition-all hover:shadow-lg`;
+                                card.innerHTML = `
+                                    <div class="flex justify-between items-start gap-4">
+                                        <div class="flex-1">
+                                            <div class="flex flex-wrap items-center gap-2 mb-1">
+                                                <span class="text-[9px] font-black px-2 py-0.5 rounded border ${theme.border} ${theme.bg} ${theme.text} uppercase">${theme.label}</span>
+                                                <h3 class="font-bold text-xl text-gray-900">${course.subject} ${course.course}</h3>
+                                            </div>
+                                            <p class="text-[11px] font-bold text-gray-400 uppercase tracking-tight">Section ${course.section} • CRN ${course.crn}</p>
+                                            <h4 class="text-gray-700 font-bold text-md mt-2 leading-tight">${course.title}</h4>
+                                        </div>
+                                        <div class="inline-block px-2 py-1 rounded-md border ${seatColor} text-[12px] font-bold">
+                                            ${course.seats}
+                                        </div>
+                                    </div>
+                                    <div class="text-[13px] font-bold text-gray-600 mt-4 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                                        📅 ${course.schedule}
+                                    </div>
+                                `;
+                                resultsDiv.appendChild(card);
+                            });
+                        }
+                    });
+
+                    // Quietly pass the dictionary to AI handler in the background
+                    if (totalFound > 0) {
+                        fetch('/analyze_all', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({ courses: organizedForAI })
+                        }).catch(err => console.log("AI Background task error:", err));
+                    }
+
+                    status.className = "mt-8 p-4 rounded-xl text-center font-semibold bg-emerald-50 text-emerald-700";
+                    status.innerHTML = `✅ Successfully loaded ${totalFound} sections.`;
+
+                } catch (e) {
+                    status.className = "mt-8 p-4 rounded-xl text-center font-semibold bg-red-50 text-red-700";
+                    status.innerHTML = "Scrape failed.";
                 }
-
-                const totalDuration = ((performance.now() - startTime) / 1000).toFixed(2);
-                status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-emerald-50 text-emerald-700";
-                status.innerHTML = `✅ Organized ${Object.keys(organizedCourses).length} courses (${totalSectionsFound} sections) in ${totalDuration}s`;
-
-            } catch (err) {
-                console.error("Batch scrape failed", err);
-                status.className = "mb-6 p-4 rounded-xl text-center font-semibold bg-red-50 text-red-700";
-                status.innerHTML = "Something went wrong during the search.";
+                btn.disabled = false;
+                btn.innerText = "Fetch All Data";
             }
-
-            btn.disabled = false;
-            btn.innerText = "Fetch All Courses";
-        }
-    </script>
-</body>
-</html>
+        </script>
+    </body>
+</html> -->
