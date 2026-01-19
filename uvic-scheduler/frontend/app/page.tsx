@@ -94,6 +94,7 @@ export default function Home() {
   };
 
   const startScrapeAndBuild = async () => {
+    const start = performance.now();
     setLoading(true);
     setStatusMessage({ text: "Gathering course data concurrently...", type: 'info' });
     const activeRows = rows.filter(r => r.subject && r.number);
@@ -114,6 +115,8 @@ export default function Home() {
       });
 
       const buildResult = await buildRes.json();
+      const end = performance.now();
+      console.log(`Total round trip: ${(end - start) / 1000}s`);
       setGeneratedSchedules(buildResult.schedules || []);
       setStatusMessage({ text: buildResult.schedules?.length > 0 ? `✅ Success! ${buildResult.schedules.length} Schedules Generated` : "❌ No valid schedules found.", type: buildResult.schedules?.length > 0 ? 'success' : 'error' });
     } catch (error) { setStatusMessage({ text: "Connection error.", type: 'error' }); }
