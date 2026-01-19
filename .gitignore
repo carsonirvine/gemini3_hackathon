@@ -1,2 +1,25 @@
-__pycache__/course_lookup.cpython-313.pyc
-__pycache__/filter.cpython-313.pyc
+# --- Python (Backend) ---
+__pycache__/
+*.pyc
+venv/
+.venv/
+.pytest_cache/
+
+# --- Node.js (Frontend) ---
+node_modules/
+.next/
+dist/
+out/
+build/
+
+# --- System & IDE Files ---
+.DS_Store
+.vscode/
+.idea/
+
+# --- Security (NEVER commit these) ---
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
