@@ -2,13 +2,17 @@ import time
 from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
+chrome_options = Options()
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
 def get_uvic_courses(subject: str, number: str):
     ROOT = Path(__file__).resolve().parent
     # FIX: Ensure this path matches your folder structure exactly
     scraper_file = ROOT / "scripts" / "scraper.js"
 
-    chrome_options = Options()
     chrome_options.add_argument("--headless=new") # Re-enable for speed
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--window-size=1920,1080")
