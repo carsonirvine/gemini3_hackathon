@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from scraper import get_uvic_courses
+from schedule_builder import get_best_schedules
 
 app = FastAPI()
 
@@ -19,7 +20,7 @@ app.add_middleware(
 # New Route: Accepts both subject (CSC) and number (111)
 @app.get("/api/courses/{subject}/{number}")
 def get_courses(subject: str, number: str):
-    print(f"🔍 API Request: Searching for {subject.upper()} {number}")
+    print(f"API Request: Searching for {subject.upper()} {number}")
     try:
         # We pass both arguments to your scraper logic
         data = get_uvic_courses(subject.upper(), number)
@@ -31,5 +32,11 @@ def get_courses(subject: str, number: str):
             "data": data
         }
     except Exception as e:
-        print(f"❌ API Error: {str(e)}")
+        print(f"API Error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Scraper failed: {str(e)}")
+    
+@app.post("/api/build-schedules")
+async def build(course_data: dict):
+    # course_data should look like: {"mandatory": {"CSC111": [...], "MATH100": [...]}}
+    schedules = get_best_schedules(course_data)
+    return {"count": len(schedules), "schedules": schedules}
