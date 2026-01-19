@@ -4,7 +4,7 @@ import subprocess
 from pathlib import Path
 import sys
 import time
-import ai_handler
+import schedule_builder
 
 app = Flask(__name__)
 ROOT = Path(__file__).resolve().parent
@@ -98,7 +98,7 @@ def analyze():
 
     try:
         # Get the list of result dictionaries from the AI handler
-        top_schedules = ai_handler.get_best_schedules(data) 
+        top_schedules = schedule_builder.get_best_schedules(data) 
         
         if not top_schedules:
             return jsonify({
