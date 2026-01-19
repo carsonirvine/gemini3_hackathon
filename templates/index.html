@@ -76,7 +76,7 @@
     let allSchedules = [];
     let currentSchedulePage = 0;
     const itemsPerPage = 5;
-    const maxVisibleBubbles = 7; // Only show 7 bubbles at a time
+    const maxVisibleBubbles = 7;
     const colorPalette = ['bg-blue-600', 'bg-purple-600', 'bg-pink-600', 'bg-orange-500', 'bg-indigo-600', 'bg-cyan-600'];
 
     window.onload = () => { addRow('mandatory'); };
@@ -130,21 +130,21 @@
             return { label: seatsStr || "TBA", classes: "text-gray-500 bg-gray-100 border-gray-200" };
         }
         let [available, total] = seatsStr.split('/').map(Number);
-        if (available <= 0) return { label: "FULL", classes: "text-red-700 bg-red-50 border-red-200" };
-        let percentLeft = (available / total) * 100;
-        if (percentLeft >= 25) return { label: `${available}/${total} Left`, classes: "text-emerald-700 bg-emerald-50 border-emerald-200" };
-        return { label: `${available}/${total} Left`, classes: "text-amber-700 bg-amber-50 border-amber-200" };
+        available_percent = (available/total)*100;
+        if (available_percent >= 75) return { label: `${available}/${total} Left`, classes: "text-emerald-700 bg-emerald-50 border-emerald-200" };
+        if (available_percent > 0) return { label: `${available}/${total}`, classes: "text-amber-700 bg-amber-50 border-amber-200" };
+        return { label: `${available}/${total} Left`, classes: "text-red-700 bg-red-50 border-red-200" };
     }
 
     function getWaitlistStatus(waitlistStr) {
         if (!waitlistStr || waitlistStr === "N/A" || !waitlistStr.includes('/')) {
-            return { label: waitlistStr || "TBA", classes: "text-gray-500 bg-gray-100 border-gray-200" };
+            return { label: "NO WAITLIST", classes: "text-gray-400 bg-gray-50 border-gray-100" };
         }
         let [available, total] = waitlistStr.split('/').map(Number);
-        if (available <= 0) return { label: "FULL", classes: "text-red-700 bg-red-50 border-red-200" };
-        let percentLeft = (available / total) * 100;
-        if (percentLeft >= 25) return { label: `${available}/${total} Left`, classes: "text-emerald-700 bg-emerald-50 border-emerald-200" };
-        return { label: `${available}/${total} Left`, classes: "text-amber-700 bg-amber-50 border-amber-200" };
+        available_percent = (available/total)*100;
+        if (available_percent >= 100) return { label: `WL: ${available}/${total} Left`, classes: "text-emerald-700 bg-emerald-50 border-emerald-200" };
+        if (available_percent > 0) return { label: `WL: ${available}/${total}`, classes: "text-amber-700 bg-amber-50 border-amber-200" };
+        return { label: `WL: ${available}/${total} Left`, classes: "text-red-700 bg-red-50 border-red-200" };
     }
 
     function renderSchedules() {
@@ -155,20 +155,32 @@
         const end = start + itemsPerPage;
         const pageItems = allSchedules.slice(start, end);
 
-        pageItems.forEach((schedule, i) => {
+        pageItems.forEach((item, i) => {
+            const schedule = item.sections;
+            const isWaitlist = item.status === "waitlist";
             const globalIndex = start + i + 1;
             const card = document.createElement('div');
-            card.className = "bg-white border border-gray-200 shadow-xl rounded-[2rem] overflow-hidden transition-all hover:shadow-2xl mb-8";
+            
+            // Waitlist visual logic
+            const borderClass = isWaitlist ? "border-amber-400 shadow-amber-100" : "border-gray-200 shadow-xl";
+            const headerClass = isWaitlist ? "bg-amber-500" : "bg-gray-900";
+            const pulseClass = isWaitlist ? "bg-white" : "bg-emerald-500";
+
+            card.className = `bg-white border-2 ${borderClass} rounded-[2rem] overflow-hidden transition-all hover:shadow-2xl mb-8`;
             
             let html = `
-                <div class="bg-gray-900 px-8 py-5 flex justify-between items-center">
+                <div class="${headerClass} px-8 py-5 flex justify-between items-center">
                     <div>
-                        <h3 class="text-white font-black text-lg italic tracking-tighter">OPTION ${globalIndex.toString().padStart(2, '0')}</h3>
-                        <p class="text-[9px] text-gray-400 font-bold uppercase tracking-widest">Optimized UVic Route</p>
+                        <h3 class="text-white font-black text-lg italic tracking-tighter uppercase">
+                            Option ${globalIndex.toString().padStart(2, '0')} 
+                            ${isWaitlist ? '• Waitlist Plan' : ''}
+                        </h3>
                     </div>
                     <div class="flex items-center gap-2">
-                        <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <span class="text-[10px] text-emerald-400 font-black uppercase">Valid</span>
+                        <span class="h-2 w-2 rounded-full ${pulseClass} animate-pulse"></span>
+                        <span class="text-[10px] text-white font-black uppercase tracking-widest">
+                            ${isWaitlist ? 'Waitlist Required' : 'Open'}
+                        </span>
                     </div>
                 </div>
                 <div class="divide-y divide-gray-50">`;
@@ -177,7 +189,7 @@
                 const colorClass = colorPalette[index % colorPalette.length];
                 const timePart = course.schedule.includes('|') ? course.schedule.split('|')[1].trim() : "TBA";
                 const seatStatus = getSeatsStatus(course.seats);
-                const waitlistStatus = getWaitlistStatus(course.waitlist)
+                const waitlistStatus = getWaitlistStatus(course.waitlist);
                 
                 html += `
                     <div class="p-6 hover:bg-gray-50/50 transition-colors">
@@ -194,11 +206,13 @@
                                 <div class="bg-white border border-gray-100 px-3 py-1.5 rounded-xl shadow-sm">
                                     <span class="text-[11px] font-black text-gray-700 tabular-nums">${timePart}</span>
                                 </div>
-                                <div class="px-2 py-0.5 rounded-lg border text-[10px] font-black uppercase tracking-tighter ${seatStatus.classes}">
-                                    ${seatStatus.label}
-                                </div>
-                                <div class="px-2 py-0.5 rounded-lg border text-[10px] font-black uppercase tracking-tighter ${waitlistStatus.classes}">
-                                    ${waitlistStatus.label}
+                                <div class="flex gap-1">
+                                    <div class="px-2 py-0.5 rounded-lg border text-[9px] font-black uppercase tracking-tighter ${seatStatus.classes}">
+                                        ${seatStatus.label}
+                                    </div>
+                                    <div class="px-2 py-0.5 rounded-lg border text-[9px] font-black uppercase tracking-tighter ${waitlistStatus.classes}">
+                                        ${waitlistStatus.label}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -218,51 +232,29 @@
         const container = document.getElementById('bubble-container');
         const controls = document.getElementById('pagination-controls');
         container.innerHTML = "";
-        
         const totalPages = Math.ceil(allSchedules.length / itemsPerPage);
         if (totalPages <= 1) { controls.classList.add('hidden'); return; }
-        
         controls.classList.remove('hidden');
 
-        // Logic for sliding window (shows 7 bubbles max)
         let startPage = Math.max(0, currentSchedulePage - Math.floor(maxVisibleBubbles / 2));
         let endPage = Math.min(totalPages - 1, startPage + maxVisibleBubbles - 1);
+        if (endPage - startPage < maxVisibleBubbles - 1) startPage = Math.max(0, endPage - maxVisibleBubbles + 1);
 
-        if (endPage - startPage < maxVisibleBubbles - 1) {
-            startPage = Math.max(0, endPage - maxVisibleBubbles + 1);
-        }
-
-        // Quick Jump to First
-        if (startPage > 0) {
-            container.appendChild(createNavArrow('«', 0));
-        }
-
+        if (startPage > 0) container.appendChild(createNavArrow('«', 0));
         for (let i = startPage; i <= endPage; i++) {
             const bubble = document.createElement('div');
             bubble.className = `page-bubble ${i === currentSchedulePage ? 'active' : ''}`;
-            bubble.onclick = () => {
-                currentSchedulePage = i;
-                renderSchedules();
-                window.scrollTo({ top: document.getElementById('schedule-results-list').offsetTop - 50, behavior: 'smooth' });
-            };
+            bubble.onclick = () => { currentSchedulePage = i; renderSchedules(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
             container.appendChild(bubble);
         }
-
-        // Quick Jump to Last
-        if (endPage < totalPages - 1) {
-            container.appendChild(createNavArrow('»', totalPages - 1));
-        }
+        if (endPage < totalPages - 1) container.appendChild(createNavArrow('»', totalPages - 1));
     }
 
     function createNavArrow(label, target) {
         const arrow = document.createElement('div');
         arrow.innerText = label;
         arrow.className = "text-lg font-bold text-gray-400 cursor-pointer hover:text-blue-600 px-2 transition-colors";
-        arrow.onclick = () => {
-            currentSchedulePage = target;
-            renderSchedules();
-            window.scrollTo({ top: document.getElementById('schedule-results-list').offsetTop - 50, behavior: 'smooth' });
-        };
+        arrow.onclick = () => { currentSchedulePage = target; renderSchedules(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
         return arrow;
     }
 
@@ -276,7 +268,7 @@
         btn.disabled = true;
         btn.innerText = "Processing...";
         status.className = "mt-8 p-4 rounded-xl text-center font-semibold bg-blue-50 text-blue-700 block animate-pulse";
-        status.innerHTML = `<div class="spinner"></div> <span>Generating best combinations...</span>`;
+        status.innerHTML = `<div class="spinner"></div> <span>Generating options...</span>`;
 
         const rows = document.querySelectorAll('.course-row');
         const scrapePromises = Array.from(rows).map(row => {
@@ -315,7 +307,7 @@
                 currentSchedulePage = 0;
                 renderSchedules();
                 status.className = "mt-8 p-4 rounded-xl text-center font-semibold bg-emerald-50 text-emerald-700";
-                status.innerHTML = `✅ Found ${data.schedules.length} conflict-free schedules.`;
+                status.innerHTML = `✅ Found ${data.schedules.length} options.`;
             } else {
                 document.getElementById('pagination-controls').classList.add('hidden');
                 status.innerHTML = "❌ No conflict-free options found.";
