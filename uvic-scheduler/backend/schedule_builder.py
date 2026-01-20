@@ -111,7 +111,7 @@ def get_best_schedules(course_data):
                     "included_electives": list(subset)
                 })
         
-        if len(all_raw_schedules) >= 10000: break
+        #if len(all_raw_schedules) >= 20000: break
 
     # 5. Sort by status
     status_priority = {"open": 0, "waitlist": 1, "full": 2}

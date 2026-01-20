@@ -344,6 +344,19 @@ export default function Home() {
     'bg-amber-600 border-amber-400'
   ];
 
+  // --- CAPACITY LOGIC ---
+  const MAX_TOTAL = 6;
+  const MAX_MANDATORY = 6;
+  const MAX_ELECTIVE = 3;
+
+  const mandatoryCount = rows.filter(r => r.type === 'mandatory').length;
+  const electiveCount = rows.filter(r => r.type === 'elective').length;
+  const totalCount = rows.length;
+
+  // Logic: Can add if type limit isn't reached AND total limit isn't reached
+  const canAddMandatory = mandatoryCount < MAX_MANDATORY && totalCount < MAX_TOTAL;
+  const canAddElective = electiveCount < MAX_ELECTIVE && totalCount < MAX_TOTAL;
+
   const filteredSchedules = useMemo(() => {
     if (selectedElectives.length === 0) {
       return generatedSchedules.filter(s => (s.included_electives || []).length === 0);
@@ -414,8 +427,28 @@ export default function Home() {
       
       {/* INPUT MASTER TILE */}
       <div className="w-full max-w-2xl bg-white p-8 md:p-10 rounded-[2.5rem] shadow-2xl shadow-slate-2000/40 border border-white mb-12 transform transition-all">
-        <h1 className="text-4xl font-black text-center mb-10 tracking-tighter text-slate-800">UVIC SCHEDULE <span className="text-blue-600">BUILDER</span></h1>
+        <h1 className="text-4xl font-black text-center mb-6 tracking-tighter text-slate-800">UVIC SCHEDULE <span className="text-blue-600">BUILDER</span></h1>
         
+        {/* --- CAPACITY TRACKER BAR --- */}
+        <div className="mb-8 space-y-2">
+          <div className="flex justify-between text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">
+            <span>Course Load</span>
+            <span>{totalCount} / {MAX_TOTAL}</span>
+          </div>
+          <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden flex">
+            {/* Blue Segment for Mandatory */}
+            <div 
+              className="h-full bg-blue-500 transition-all duration-500" 
+              style={{ width: `${(mandatoryCount / MAX_TOTAL) * 100}%` }}
+            ></div>
+            {/* Green Segment for Electives */}
+            <div 
+              className="h-full bg-emerald-400 transition-all duration-500" 
+              style={{ width: `${(electiveCount / MAX_TOTAL) * 100}%` }}
+            ></div>
+          </div>
+        </div>
+
         {currentPage === 1 ? (
           <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
             <h2 className="text-xs font-black text-blue-500 uppercase tracking-[0.2em] mb-2">Step 1: Mandatory</h2>
@@ -428,10 +461,20 @@ export default function Home() {
                 )}
               </div>
             ))}
-            <button onClick={() => setRows([...rows, { id: Date.now(), subject: "", number: "", type: 'mandatory' }])} 
-              className="flex items-center gap-2 text-blue-600 font-black text-[10px] tracking-widest uppercase hover:text-blue-700 hover:translate-x-1 transition-all">
-              <span className="text-xl">+</span> Add Course
+            
+            <button 
+              onClick={() => canAddMandatory && setRows([...rows, { id: Date.now(), subject: "", number: "", type: 'mandatory' }])} 
+              disabled={!canAddMandatory}
+              className={`flex items-center gap-2 font-black text-[10px] tracking-widest uppercase transition-all ${
+                canAddMandatory 
+                  ? 'text-blue-600 hover:text-blue-700 hover:translate-x-1' 
+                  : 'text-slate-300 cursor-not-allowed'
+              }`}
+            >
+              <span className="text-xl">+</span> 
+              {totalCount >= MAX_TOTAL ? "Total Limit Reached" : mandatoryCount >= MAX_MANDATORY ? "Mandatory Limit Reached" : "Add Course"}
             </button>
+
             <button onClick={() => setCurrentPage(2)} 
               className="w-full bg-slate-900 text-white py-5 rounded-3xl font-black shadow-lg hover:bg-blue-600 hover:-translate-y-1 active:scale-[0.97] transition-all duration-300">
               Continue to Electives
@@ -447,10 +490,20 @@ export default function Home() {
                 <button onClick={() => removeRow(r.id)} className="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 hover:bg-red-50 hover:text-red-500 transition-all duration-200 font-bold">✕</button>
               </div>
             ))}
-            <button onClick={() => setRows([...rows, { id: Date.now(), subject: "", number: "", type: 'elective' }])} 
-              className="flex items-center gap-2 text-emerald-600 font-black text-[10px] tracking-widest uppercase hover:text-emerald-700 hover:translate-x-1 transition-all">
-              <span className="text-xl">+</span> Add Elective
+
+            <button 
+              onClick={() => canAddElective && setRows([...rows, { id: Date.now(), subject: "", number: "", type: 'elective' }])} 
+              disabled={!canAddElective}
+              className={`flex items-center gap-2 font-black text-[10px] tracking-widest uppercase transition-all ${
+                canAddElective 
+                  ? 'text-emerald-600 hover:text-emerald-700 hover:translate-x-1' 
+                  : 'text-slate-300 cursor-not-allowed'
+              }`}
+            >
+              <span className="text-xl">+</span> 
+              {totalCount >= MAX_TOTAL ? "Total Limit Reached" : electiveCount >= MAX_ELECTIVE ? "Elective Limit Reached" : "Add Elective"}
             </button>
+
             <div className="flex gap-4 pt-4">
               <button onClick={() => setCurrentPage(1)} 
                 className="flex-1 bg-slate-100 text-slate-600 py-5 rounded-3xl font-black hover:bg-slate-200 transition-all duration-300">
